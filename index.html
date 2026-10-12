@@ -5,60 +5,162 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Elizita</title>
 <style>
-  :root { --bg: #0b0f0b; --fg: #7dff8a; --dim: #3f8f48; }
+  :root { --bg: #0b0f0b; --fg: #7dff8a; --dim: #3f8f48; --faint: #1c2a1d; }
   * { box-sizing: border-box; }
   body {
-    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
-    max-width: 48rem; margin-inline: auto; padding: 1rem;
+    margin: 0; padding: 1rem; height: 100vh; display: flex; flex-direction: column;
     background: var(--bg); color: var(--fg);
-    font: 1rem/1.5 "Courier New", ui-monospace, monospace;
+    font: 0.95rem/1.5 "Courier New", ui-monospace, monospace;
   }
-  h1 { font-size: 1rem; color: var(--dim); margin: 0 0 1rem; font-weight: normal; }
+  header { color: var(--dim); margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  h1, h2, h3 { font-size: inherit; margin: 0; }
+  h1 { font-weight: normal; }
+  a { color: inherit; }
+  select, input, button { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--dim); padding: .3rem .5rem; }
+  select:focus, input:focus, button:focus, summary:focus { outline: 2px solid var(--fg); }
+
+  /* Details on the left, chat on the right; stacked (chat first) on narrow screens. */
+  main { flex: 1; min-height: 0; display: grid; gap: 1.5rem;
+         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "about chat"; }
+  #about { grid-area: about; overflow-y: auto; padding-right: .75rem; border-right: 1px solid var(--faint); }
+  #chat { grid-area: chat; display: flex; flex-direction: column; min-height: 0; }
+  @media (max-width: 760px) {
+    body { height: auto; }
+    main { grid-template-columns: minmax(0, 1fr); grid-template-areas: "chat" "about"; }
+    #chat { height: 70vh; }
+    #about { border-right: 0; border-top: 1px solid var(--faint); padding: 1rem 0 0; }
+  }
+
   #log { flex: 1; overflow-y: auto; white-space: pre-wrap; }
   #log p { margin: 0 0 .75rem; }
   #log .you { color: var(--dim); }
   #log .you::before { content: "> "; }
   form { display: flex; gap: .5rem; border-top: 1px solid var(--dim); padding-top: .75rem; }
-  input, button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--dim); padding: .4rem .6rem; }
-  input { flex: 1; min-width: 0; }
-  input:focus, button:focus, select:focus { outline: 2px solid var(--fg); }
-  select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--dim); }
+  form input { flex: 1; min-width: 0; }
+
+  #about section { margin-bottom: 1.5rem; }
+  #about h3 { color: var(--dim); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  #about p { margin: 0 0 .6rem; }
+  .muted { color: var(--dim); }
+  .small { font-size: .85em; }
+  #trace { margin: 0; padding-left: 1.4rem; white-space: pre-wrap; }
+  details { border-left: 2px solid var(--faint); padding-left: .5rem; margin-bottom: .3rem; }
+  summary { cursor: pointer; }
+  .rule { margin: .3rem 0 .6rem; }
+  .rule ul { margin: .1rem 0; padding-left: 1.4rem; color: var(--dim); }
+  #search { width: 100%; margin-bottom: .5rem; }
 </style>
 </head>
 <body>
-<h1>ELIZA · after Weizenbaum, 1966 · <select id="set" aria-label="Rule set"></select> · <a id="rules-link" style="color:inherit">rules</a></h1>
-<div id="log" aria-live="polite"></div>
-<form id="form">
-  <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
-  <button>Send</button>
-</form>
+<header>
+  <h1>ELIZA and descendants ·</h1>
+  <select id="set" aria-label="Rule set"></select>
+  <a id="rules-link">raw rules</a>
+</header>
+<main>
+  <section id="chat" aria-label="Chat">
+    <div id="log" aria-live="polite"></div>
+    <form id="form">
+      <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
+      <button>Send</button>
+    </form>
+  </section>
+  <aside id="about" aria-label="About this system">
+    <section><h2 id="name"></h2><p class="muted small" id="source"></p></section>
+    <section><h3>How it works</h3><div id="about-text"></div></section>
+    <section><h3>Why that reply</h3><ol id="trace"><li class="muted">Say something to see the steps.</li></ol></section>
+    <section><h3>The rules</h3><div id="rules"></div></section>
+  </aside>
+</main>
 <script type="module">
   import { createEliza } from "./eliza.js";
 
+  const $ = id => document.getElementById(id);
   const getJSON = async url => (await fetch(url)).json();
+  // el("p", { className: "muted" }, "text", childElement, ...)
+  function el(tag, props, ...children) {
+    const node = Object.assign(document.createElement(tag), props);
+    node.append(...children.filter(c => c != null));
+    return node;
+  }
 
   // Pick a rule set from rules/index.json (?rules=<id>, default: the first one).
   const sets = await getJSON("rules/index.json");
   const current = sets.find(s => s.id === new URLSearchParams(location.search).get("rules")) || sets[0];
-  const select = document.getElementById("set");
+  const select = $("set");
   for (const s of sets) select.add(new Option(s.name, s.id, false, s === current));
   select.addEventListener("change", () => { location.search = "?rules=" + select.value; });
-  document.getElementById("rules-link").href = `rules/${current.id}.json`;
+  $("rules-link").href = `rules/${current.id}.json`;
 
-  const eliza = createEliza(await getJSON(`rules/${current.id}.json`));
-  const log = document.getElementById("log");
-  const input = document.getElementById("msg");
+  const rules = await getJSON(`rules/${current.id}.json`);
+  const eliza = createEliza(rules);
 
+  // ---- Left column: what this system is and what its rules are ----
+  $("name").textContent = rules.name;
+  $("source").textContent = rules.source || "";
+  $("about-text").append(...(rules.about || []).map(text => el("p", {}, text)));
+
+  // A template node from the AIML "categories" format, flattened for display.
+  function flatten(node) {
+    if (typeof node === "string") return node;
+    if (Array.isArray(node)) return node.map(flatten).join("");
+    const [tag] = Object.keys(node), value = node[tag];
+    if (tag === "set") return `[${node.set} = ${flatten(node.to)}]`;
+    if (tag === "random") return `[one of: ${value.map(flatten).join(" | ")}]`;
+    if (tag === "condition") return `[if ${value.map(c => `${c.name || ""}=${c.value ?? "else"}: ${flatten(c.then)}`).join("; ")}]`;
+    if (typeof value === "string") return `[${tag} ${value}]`;
+    if (typeof value === "number") return value === 1 ? `[${tag}]` : `[${tag} ${value}]`;
+    return `[${tag} ${flatten(value)}]`;
+  }
+  const show = reasmb => (typeof reasmb === "string" ? reasmb : `rewrite to "${reasmb.pre}", goto ${reasmb.goto}`);
+  const box = $("rules");
+
+  if (rules.keywords && !rules.categories) {
+    const keys = Object.entries(rules.keywords);
+    box.append(el("p", { className: "muted" }, `${keys.length} keywords, highest rank first. Open one to see its patterns and replies.`));
+    keys.sort((a, b) => (b[1].rank || 0) - (a[1].rank || 0));
+    for (const [word, entry] of keys) {
+      box.append(el("details", {},
+        el("summary", {}, `${word}${entry.rank ? `  rank ${entry.rank}` : ""}${entry.goto ? `  → ${entry.goto}` : ""}`),
+        ...(entry.rules || []).map(rule => el("div", { className: "rule" },
+          el("div", {}, rule.decomp),
+          el("ul", {}, ...rule.reasmb.map(r => el("li", {}, show(r))))))));
+    }
+    const pairs = obj => Object.entries(obj || {}).map(([k, v]) => `${k} → ${Array.isArray(v) ? v.join(" ") : v}`).join(",  ");
+    if (rules.substitute) box.append(el("details", {}, el("summary", {}, "word swaps while scanning (substitute)"), el("p", {}, pairs(rules.substitute))));
+    if (rules.reflect) box.append(el("details", {}, el("summary", {}, "word swaps in replies (reflect)"), el("p", {}, pairs(rules.reflect))));
+    if (rules.tags) box.append(el("details", {}, el("summary", {}, "word groups (tags)"), el("p", {}, pairs(rules.tags))));
+    if (rules.memory) box.append(el("details", {}, el("summary", {}, `memory (keyword ${rules.memory.keyword})`),
+      el("ul", {}, ...rules.memory.rules.map(r => el("li", {}, `${r.decomp}  →  ${r.reasmb}`)))));
+    if (rules.none) box.append(el("details", {}, el("summary", {}, "when nothing matches (none)"), el("ul", {}, ...rules.none.map(r => el("li", {}, r)))));
+  }
+
+  if (rules.categories) {
+    const search = el("input", { id: "search", type: "search", placeholder: "search patterns, e.g. NAME or LIKE", ariaLabel: "Search patterns" });
+    const results = el("div");
+    box.append(el("p", { className: "muted" }, `${rules.categories.length.toLocaleString()} categories. Each is a pattern for the whole sentence, an optional "after" (what the bot said last) and a reply.`), search, results);
+    function list() {
+      const q = search.value.trim().toUpperCase();
+      const hits = rules.categories.filter(c => !q || c.pattern.includes(q)).slice(0, 50);
+      results.replaceChildren(...hits.map(c => el("div", { className: "rule" },
+        el("div", {}, c.pattern + (c.that ? `   (after "${c.that}")` : "")),
+        el("ul", {}, el("li", {}, flatten(c.template).trim())))));
+      if (!hits.length) results.append(el("p", { className: "muted" }, "No pattern contains that."));
+    }
+    search.addEventListener("input", list);
+    list();
+  }
+
+  // ---- Right column: the chat ----
+  const log = $("log");
+  const input = $("msg");
   function say(text, who) {
-    const p = document.createElement("p");
-    p.textContent = who === "you" ? text : text.toUpperCase();
-    p.className = who;
-    log.append(p);
+    log.append(el("p", { className: who }, text));
     log.scrollTop = log.scrollHeight;
   }
 
   say(eliza.initial, "eliza");
-  document.getElementById("form").addEventListener("submit", e => {
+  $("form").addEventListener("submit", e => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text) return;
@@ -67,9 +169,10 @@
     if (eliza.isQuit(text)) {
       say(eliza.final, "eliza");
       input.disabled = true;
-    } else {
-      say(eliza.reply(text), "eliza");
+      return;
     }
+    say(eliza.reply(text), "eliza");
+    $("trace").replaceChildren(...eliza.trace.map(step => el("li", {}, step)));
   });
 </script>
 </body>

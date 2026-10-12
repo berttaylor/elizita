@@ -1,8 +1,14 @@
 # Elizita
 
-ELIZA, Joseph Weizenbaum's 1966 chatbot, as **one engine plus swappable rule files**. The engine is Weizenbaum's own algorithm, recreated faithfully. Everything ELIZA says comes from a rules file. Features beyond 1966 are opt-in fields in the rules, so the original script still behaves exactly as it did in 1966.
+ELIZA and its descendants as **one engine plus swappable rule files**. The engine is Weizenbaum's own 1966 algorithm, recreated faithfully. Later ideas, up to the AIML behind A.L.I.C.E., are opt-in fields in the rules, so each historical rule set still behaves as it originally did.
 
-Live at https://berttaylor.github.io/elizita/. Pick a rule set from the dropdown, or link straight to one with `?rules=doctor-extended`.
+Live at https://berttaylor.github.io/elizita/. Pick a rule set from the dropdown, or link straight to one with `?rules=alice`. The left column explains the selected system, shows **why it gave its last reply** step by step, and lists its rules.
+
+| Tier | Rule set | Year | How it answers |
+|------|----------|------|----------------|
+| 1 | `doctor-1966` | 1966 | Spot the highest-ranked keyword and reshape the sentence around it. |
+| 2 | `doctor-extended` | ours | The same idea with more keywords, matching your own words and mirroring them on the way out. |
+| 3 | `alice` | 1995–2011 | Match the whole sentence against about 50,000 patterns, rewrite synonyms to canonical forms, follow up on its own last line, and remember your name. |
 
 | File | Role |
 |------|------|
@@ -10,6 +16,8 @@ Live at https://berttaylor.github.io/elizita/. Pick a rule set from the dropdown
 | `rules/index.json` | The list of rule sets shown in the dropdown. |
 | `rules/doctor-1966.json` | Weizenbaum's DOCTOR script from the 1966 paper, unchanged. |
 | `rules/doctor-extended.json` | Our expanded DOCTOR: more keywords and modern pronoun reflection. |
+| `rules/alice.json` | The Free A.L.I.C.E. AIML set, converted (GPL). |
+| `tools/aiml2json.mjs` | Converts any folder of AIML 1.0 files into a rules file. |
 | `cases/<id>.json` | Conversations each rule set must reproduce word for word. |
 | `index.html` | The UI only. |
 
@@ -82,14 +90,48 @@ Every token counts as a numbered piece. In `* YOUR * (/FAMILY) *`, piece (4) is 
 
 | Field | Effect |
 |-------|--------|
-| `reflect` | A word map applied to pieces as they're inserted into a reply, the modern alternative to `substitute`: match the user's own words, then mirror `MY`→`YOUR` on the way out. |
+| `about` | Paragraphs shown in the page's "How it works" panel. |
+| `reflect` | A word map applied to pieces as they're inserted into a reply, the modern alternative to `substitute`: match the user's own words, then mirror `MY`→`YOUR` on the way out. In AIML it's also used by `person`. |
+| `categories` | AIML-style whole-sentence matching (see below). When present, every sentence goes through the categories first; `keywords`, if present too, are the fallback. |
+| `bot`, `person2`, `gender` | AIML bot properties and word maps. |
 
-New capabilities get added here the same way: random reply choice, follow-ups that depend on ELIZA's previous reply (as in AIML), variables like the user's name, topics, and word stemming. Each is a new optional field, and `cases/doctor-1966.json` proves the original still behaves exactly the same.
+Each feature is a new optional field, and `cases/doctor-1966.json` proves the original still behaves exactly the same.
+
+### AIML categories
+
+```json
+{ "pattern": "MY NAME IS *", "template": [{ "srai": ["CALL ME ", { "star": 1 }] }] }
+{ "pattern": "I DO NOT KNOW", "that": "WHAT DO YOU GET WHEN YOU CROSS *", "template": [{ "srai": ["WHAT"] }] }
+```
+
+- **Matching:** `pattern` is matched against the whole sentence (uppercase, punctuation removed, `substitute` contractions expanded). `that` is matched against the bot's previous sentence and `topic` against the `topic` variable; both default to `*`. `_` matches 1+ words and beats an exact word, which beats `*` (also 1+ words). This is Wallace's "Graphmaster".
+- **Templates:** a list of strings and tag objects:
+
+| Tag | Meaning |
+|-----|---------|
+| `{"star": n}`, `{"thatstar": n}`, `{"topicstar": n}` | The n-th wildcard match. |
+| `{"srai": [...]}` | Ask again with this text (most of ALICE is these "reductions"). |
+| `{"set": "name", "to": [...]}`, `{"get": "name"}` | Remember and recall. |
+| `{"bot": "name"}` | A bot property. |
+| `{"think": [...]}` | Do it silently. |
+| `{"random": [[...], [...]]}` | Pick one at random. |
+| `{"condition": [{ "name", "value", "then" }]}` | The first case whose variable matches; a case with no value is the default. |
+| `{"person": [...]}`, `{"person2": [...]}`, `{"gender": [...]}` | Swap pronouns. |
+| `{"input": n}`, `{"that": n}` | An earlier user sentence or bot reply. |
+| `{"uppercase"/"lowercase"/"formal"/"sentence": [...]}`, `{"date": ""}` | Formatting. |
+
+To regenerate ALICE, or convert another AIML set:
+
+```sh
+node tools/aiml2json.mjs path/to/aiml-folder tools/alice-header.json > rules/alice.json
+```
+
+The header file supplies what AIML files don't: name, about text, bot properties, contractions and pronoun maps, and which files to skip (here the MindPixel trivia files).
 
 ## Adding a rule set
 
 1. Add `rules/<id>.json`.
-2. Add `cases/<id>.json` with at least one conversation: `[{ "name": "...", "turns": [["input", "EXPECTED REPLY"], ...] }]`.
+2. Add `cases/<id>.json` with at least one conversation: `[{ "name": "...", "turns": [["input", "EXPECTED REPLY"], ...] }]`. Random choices use a fixed seed in the tests, so expected replies are repeatable.
 3. Add `{ "id": "<id>", "name": "..." }` to `rules/index.json`.
 4. Run `node test.mjs`.
 
@@ -101,6 +143,11 @@ New capabilities get added here the same way: random reply choice, follow-ups th
   - the algorithm details recovered from the original MAD-SLIP source (BUT as a delimiter, the LIMIT counter, the HASH function);
   - the historical test conversations in `cases/doctor-1966.json`.
 - **Jeff Shrager and the [ELIZAGEN](https://sites.google.com/view/elizagen-org/) team:** found the original source in the MIT archives.
+- **Richard S. Wallace and the ALICE A.I. Foundation:** A.L.I.C.E. and the Free ALICE AIML set ([github.com/drwallace/aiml-en-us-foundation-alice](https://github.com/drwallace/aiml-en-us-foundation-alice)), released under the GNU GPL. The bot profile values in `tools/alice-header.json` are reconstructed, because the original properties file isn't part of the published set.
+
+## License
+
+GPL-3.0-or-later (see `LICENSE`), as required by the ALICE AIML set. The 1966 script and test conversations from Anthony Hay's project are CC0.
 
 ## Deploy
 

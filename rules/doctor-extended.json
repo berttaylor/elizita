@@ -2,6 +2,11 @@
   "format": 1,
   "name": "DOCTOR (extended)",
   "source": "elizita's own expansion of DOCTOR: more keywords and modern pronoun reflection",
+  "about": [
+    "Our own extension of DOCTOR, running on the same 1966 engine with one modern twist.",
+    "Instead of swapping pronouns while scanning (so patterns are written as \"* YOU ARE *\" for \"I am\"), it matches your own words and mirrors the pieces on the way out (reflect: MY becomes YOUR). Patterns read the way people type.",
+    "It adds keywords the original lacked, such as FORGET and DIFFERENT, and synonym groups like SAD/UNHAPPY/DEPRESSED. It is still a keyword-spotter: one keyword, one pattern, one reply."
+  ],
   "initial": "HOW DO YOU DO. PLEASE TELL ME YOUR PROBLEM.",
   "final": "GOODBYE. THANK YOU FOR TALKING TO ME.",
   "quit": [

@@ -1,0 +1,142 @@
+[
+ {
+  "name": "Greetings and names (set/get)",
+  "turns": [
+   [
+    "Hello",
+    "Hi there!"
+   ],
+   [
+    "My name is Sam.",
+    "Hello Sam. How are you doing today."
+   ],
+   [
+    "What is my name?",
+    "You said your name is Sam?"
+   ],
+   [
+    "What is your name?",
+    "ALICE"
+   ],
+   [
+    "How old are you?",
+    "16 years."
+   ]
+  ]
+ },
+ {
+  "name": "Reductions (srai) reach the same answer",
+  "turns": [
+   [
+    "Who created you?",
+    "I obey Dr. Richard S. Wallace."
+   ],
+   [
+    "Who made you?",
+    "My botmaster is Dr. Richard S. Wallace."
+   ],
+   [
+    "Who is your botmaster?",
+    "I obey Dr. Richard S. Wallace."
+   ]
+  ]
+ },
+ {
+  "name": "Follow-up on its own question (<that>)",
+  "turns": [
+   [
+    "Tell me a joke",
+    "What do you get when you cross a cow and a lemon?"
+   ],
+   [
+    "I don't know",
+    "sour milk."
+   ],
+   [
+    "Bob",
+    "Hi there Bob."
+   ]
+  ]
+ },
+ {
+  "name": "Reflection (<person>)",
+  "turns": [
+   [
+    "I am worried about my exams",
+    "How long has about your exams been bothering you?"
+   ],
+   [
+    "You are a robot",
+    "Do you think, that I have a heart of silicon?"
+   ],
+   [
+    "I think you are clever",
+    "Thank you human, I am proud of my intelligence."
+   ]
+  ]
+ },
+ {
+  "name": "Several sentences in one message",
+  "turns": [
+   [
+    "Hello. Do you like music? What is your favorite color?",
+    "Hi there! Yes I like music, especially Opera. My favorite color is green. What is yours?"
+   ]
+  ]
+ },
+ {
+  "name": "Likes and facts",
+  "turns": [
+   [
+    "I like pizza",
+    "Pizza is very popular. Dr. Wallace eats a lot of Pizza. He likes Pepperoni."
+   ],
+   [
+    "Do you like music?",
+    "Yes I like music, especially Opera."
+   ],
+   [
+    "What is the capital of France?",
+    "Paris."
+   ]
+  ]
+ },
+ {
+  "name": "Contractions are expanded first",
+  "turns": [
+   [
+    "What's your name?",
+    "I am called ALICE."
+   ],
+   [
+    "I'm sad",
+    "What are you sad about?"
+   ],
+   [
+    "I don't know",
+    "Me either."
+   ]
+  ]
+ },
+ {
+  "name": "Questions about the bot",
+  "turns": [
+   [
+    "Are you a computer?",
+    "I am a member of the machine kingdom."
+   ],
+   [
+    "Where are you?",
+    "Oakland"
+   ],
+   [
+    "What is your favorite movie?",
+    "My favorite movie is 2001: A Space Odyssey. Have you seen 2001: A Space Odyssey?"
+   ],
+   [
+    "Can you think?",
+    "Naturally I am thinking all the time."
+   ]
+  ]
+ }
+]

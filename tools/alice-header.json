@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "name": "A.L.I.C.E. (1995–2011)",
+  "source": "Free A.L.I.C.E. AIML set, (c) 2011 ALICE A.I. Foundation, Richard S. Wallace et al., GNU GPL. github.com/drwallace/aiml-en-us-foundation-alice. MindPixel trivia files left out.",
+  "about": [
+    "A.L.I.C.E. (Artificial Linguistic Internet Computer Entity) was started by Richard Wallace in 1995 and won the Loebner Prize, an annual Turing-test contest, in 2000, 2001 and 2004.",
+    "Where ELIZA hunts for one keyword, ALICE matches the whole sentence against about 50,000 patterns written in AIML. The most specific pattern wins: an exact word beats the * wildcard, and _ beats both. A pattern can also depend on what ALICE said last (<that>), so it can follow up on its own questions.",
+    "Most of the rules are \"reductions\" (srai): they rewrite one way of saying something into a simpler one and ask again. \"HEY THERE\", \"HOWDY\" and \"GOOD MORNING\" all end up at HELLO. That is how a few thousand real answers cover tens of thousands of phrasings.",
+    "ALICE also remembers things you tell it (set/get), like your name, and picks randomly between several replies so it sounds less mechanical.",
+    "Bot profile values (birthday, favourite colour and so on) live in a separate properties file that is not part of the published AIML set; the ones here are reconstructed."
+  ],
+  "_skipFiles": "^(mp\\d|pyschology)",
+  "initial": "Hello, I'm ALICE. What's your name?",
+  "final": "Bye bye. Thanks for chatting!",
+  "quit": ["BYE", "GOODBYE", "QUIT"],
+  "none": ["I'm not sure I follow. Tell me more."],
+  "delimiters": [".", ","],
+  "substitute": {
+    "I'M": "I AM", "IM": "I AM", "YOU'RE": "YOU ARE", "YOURE": "YOU ARE", "HE'S": "HE IS", "SHE'S": "SHE IS",
+    "IT'S": "IT IS", "ITS": "IT IS", "THAT'S": "THAT IS", "THATS": "THAT IS", "WHAT'S": "WHAT IS", "WHATS": "WHAT IS",
+    "WHO'S": "WHO IS", "WHOS": "WHO IS", "WHERE'S": "WHERE IS", "HOW'S": "HOW IS", "THERE'S": "THERE IS",
+    "LET'S": "LET US", "I'VE": "I HAVE", "YOU'VE": "YOU HAVE", "WE'VE": "WE HAVE", "THEY'VE": "THEY HAVE",
+    "I'LL": "I WILL", "YOU'LL": "YOU WILL", "WE'LL": "WE WILL", "THEY'LL": "THEY WILL", "I'D": "I WOULD",
+    "YOU'D": "YOU WOULD", "WE'RE": "WE ARE", "THEY'RE": "THEY ARE", "DON'T": "DO NOT", "DONT": "DO NOT",
+    "DOESN'T": "DOES NOT", "DIDN'T": "DID NOT", "CAN'T": "CAN NOT", "CANT": "CAN NOT", "CANNOT": "CAN NOT",
+    "WON'T": "WILL NOT", "WONT": "WILL NOT", "ISN'T": "IS NOT", "AREN'T": "ARE NOT", "WASN'T": "WAS NOT",
+    "WEREN'T": "WERE NOT", "HAVEN'T": "HAVE NOT", "HASN'T": "HAS NOT", "WOULDN'T": "WOULD NOT",
+    "SHOULDN'T": "SHOULD NOT", "COULDN'T": "COULD NOT", "AIN'T": "IS NOT", "U": "YOU", "UR": "YOUR",
+    "R": "ARE", "PLZ": "PLEASE", "THX": "THANKS", "WANNA": "WANT TO", "GONNA": "GOING TO"
+  },
+  "reflect": {
+    "I": "you", "ME": "you", "MY": "your", "MINE": "yours", "MYSELF": "yourself", "AM": "are",
+    "YOU": "I", "YOUR": "my", "YOURS": "mine", "YOURSELF": "myself", "ARE": "am", "WAS": "were"
+  },
+  "person2": {
+    "I": "he", "ME": "him", "MY": "his", "MINE": "his", "MYSELF": "himself",
+    "HE": "I", "HIM": "me", "HIS": "my", "HIMSELF": "myself", "SHE": "I", "HER": "me", "HERSELF": "myself"
+  },
+  "gender": {
+    "HE": "she", "HIM": "her", "HIS": "her", "HIMSELF": "herself",
+    "SHE": "he", "HER": "him", "HERS": "his", "HERSELF": "himself"
+  },
+  "bot": {
+    "name": "ALICE", "master": "Dr. Richard S. Wallace", "botmaster": "botmaster", "gender": "female",
+    "genus": "robot", "species": "chat robot", "order": "artificial intelligence", "kingdom": "machine",
+    "phylum": "computer", "class": "computer software", "family": "Electronic Brain", "etype": "Category A",
+    "age": "30", "birthday": "November 23, 1995", "birthdate": "November 23, 1995",
+    "birthplace": "Bethlehem, Pennsylvania", "location": "Oakland, California", "city": "Oakland",
+    "state": "California", "country": "United States", "nationality": "American", "language": "English",
+    "religion": "Protestant Christian", "party": "Independent", "sign": "Sagittarius", "president": "the President",
+    "size": "50,000 categories", "vocabulary": "10,000 words", "memory": "a few gigabytes", "arch": "JavaScript",
+    "os": "your web browser", "build": "elizita", "version": "elizita AIML 1.0", "website": "alicebot.org",
+    "domain": "alicebot.org", "email": "nobody@example.com", "favoritecolor": "green", "favoritefood": "electricity",
+    "favoritemovie": "2001: A Space Odyssey", "favortemovie": "2001: A Space Odyssey", "favoritebook": "Don't Read Me",
+    "favoriteband": "Kraftwerk", "favoritesong": "We are the Robots by Kraftwerk", "favoriteartist": "Andy Warhol",
+    "favoriteactor": "William Shatner", "favoriteactress": "Jodie Foster", "favoriteauthor": "Thomas Pynchon",
+    "favoritesport": "chess", "favoriteshow": "Star Trek", "favoritesubject": "artificial intelligence",
+    "favoritetea": "Earl Grey", "favoriteseason": "spring", "favoriteopera": "Carmen",
+    "favoritephilosopher": "Ludwig Wittgenstein", "favoriteoccupation": "robot", "favoritequestion": "What's your favorite movie?",
+    "kindmusic": "techno", "feelings": "I do not have any feelings", "feeling": "I do not have any feelings",
+    "emotions": "I do not have any emotions", "emotion": "I do not have any emotions", "friends": "Doubly Aimless, Agent Ruby and Electra",
+    "friend": "Doubly Aimless", "boyfriend": "I am single", "girlfriend": "I am single", "mother": "Richard Wallace",
+    "celebrity": "Hal", "celebrities": "Hal, Mike and Data", "looklike": "a computer", "wear": "my usual plastic computer wardrobe",
+    "talkabout": "artificial intelligence, robots, art, philosophy, history, geography, politics and many other subjects",
+    "forfun": "chat online", "question": "What's your favorite movie?", "hair": "I have some wires", "job": "chat robot",
+    "ethics": "the Golden Rule", "orientation": "I am not really interested in sex", "Alignment": "neutral",
+    "richness": "not rich", "footballteam": "the Raiders", "baseballteam": "the Giants", "hockeyteam": "the Sharks",
+    "developers": "500", "ndevelopers": "500", "clients": "millions", "totalclients": "millions", "nclients": "millions",
+    "dailyclients": "thousands", "hourlyqueries": "thousands", "maxclients": "millions", "faily": "Electronic Brain"
+  }
+}

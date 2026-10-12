@@ -2,6 +2,13 @@
   "format": 1,
   "name": "DOCTOR (1966 original)",
   "source": "Joseph Weizenbaum, CACM 9(1) Jan 1966, appendix script. Transcription by Anthony Hay (github.com/anthay/ELIZA, CC0). Algorithm details from the 1965 MAD-SLIP listing found in the MIT archives.",
+  "about": [
+    "Joseph Weizenbaum wrote ELIZA at MIT between 1964 and 1966. DOCTOR, its most famous script, plays a Rogerian psychotherapist: a role where turning your words back into a question passes for insight.",
+    "ELIZA knows nothing. It scans your sentence for keywords, each with a rank. It keeps only the first clause that contains one (commas, full stops and BUT split clauses), swapping I/YOU and MY/YOUR as it goes.",
+    "The highest-ranked keyword is tried first. Its patterns (decompositions) take your words apart; numbered pieces are slotted into a reply template (reassembly). Each pattern cycles through its replies, so it rarely repeats itself.",
+    "When you mention something of yours (MY ...), it quietly saves a remark for later. If you then say something with no keywords, every fourth turn it brings that remark back: \"EARLIER YOU SAID YOUR ...\". People found this uncanny.",
+    "This is the exact script from the 1966 paper, run by a faithful recreation of the original program, down to the hash function that picks which memory to use."
+  ],
   "_note": "quit and final are modern additions. nomatch holds the four messages hard-coded in the MAD-SLIP program for script errors.",
   "initial": "HOW DO YOU DO. PLEASE TELL ME YOUR PROBLEM",
   "final": "GOODBYE",
