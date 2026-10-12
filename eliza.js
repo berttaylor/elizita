@@ -41,7 +41,39 @@ function tokenize(text) {
 // "* YOU (* WANT NEED) *" -> ["*", "YOU", "(* WANT NEED)", "*"]
 const patternTokens = decomp => decomp.match(/\([^)]*\)|\S+/g);
 
-export function createEliza(rules, { random = Math.random } = {}) {
+// Load rules/<id>.json, resolving "include" (merge other rule sets' categories and word maps in)
+// and "fallback" (a whole other rule set to hand over to). getJSON/getBytes do the fetching, so
+// this works the same in the browser and in node.
+export async function loadRules(id, getJSON, getBytes) {
+  const own = await getJSON(`rules/${id}.json`);
+  let rules = {};
+  for (const other of own.include || []) rules = mergeRules(rules, await loadRules(other, getJSON, getBytes));
+  rules = mergeRules(rules, own);
+  rules.includes = own.include || [];
+  if (own.fallback) rules.fallback = await loadRules(own.fallback, getJSON, getBytes);
+  if (own.meaning?.vectorsFile) {
+    rules.meaning = { ...own.meaning, vectors: new Int8Array(await getBytes(`rules/${own.meaning.vectorsFile}`)) };
+  }
+  return rules;
+}
+
+const MAPS = ["substitute", "reflect", "person2", "gender", "bot", "tags", "keywords", "moods"];
+export function mergeRules(base, extra) {
+  const out = { ...base, ...extra };
+  for (const key of MAPS) if (base[key] || extra[key]) out[key] = { ...base[key], ...extra[key] };
+  if (base.categories || extra.categories) out.categories = [...(base.categories || []), ...(extra.categories || [])];
+  delete out.include;
+  return out;
+}
+
+// Cosine similarity of two vectors (the model's vectors are unit length, int8 ones nearly so).
+function cosine(a, b) {
+  let dot = 0, na = 0, nb = 0;
+  for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] * a[i]; nb += b[i] * b[i]; }
+  return dot / Math.sqrt(na * nb || 1);
+}
+
+export function createEliza(rules, { random = Math.random, embed = null } = {}) {
   const delimiters = rules.delimiters || [",", "."];
   const counters = {}; // "KEYWORD/ruleIndex" -> how many times that rule has fired
   const memories = []; // replies saved by the memory rules, said later
@@ -111,7 +143,8 @@ export function createEliza(rules, { random = Math.random } = {}) {
   }
 
   // The 1966 keyword algorithm.
-  function keywordReply(text) {
+  // quiet: return null instead of a "none" line when no keyword is found (used as a fallback).
+  function keywordReply(text, { quiet = false } = {}) {
     let words = tokenize(text);
     limit = (limit % 4) + 1;
 
@@ -142,6 +175,7 @@ export function createEliza(rules, { random = Math.random } = {}) {
       trace.push("no keyword, and the counter is at 4: recall a memory");
       return memories.shift();
     }
+    if (!stack.length && quiet) return null;
 
     while (stack.length) {
       const key = stack.shift();
@@ -175,13 +209,14 @@ export function createEliza(rules, { random = Math.random } = {}) {
         return assemble(action, pieces);
       }
     }
-    return none();
+    return quiet ? null : none();
   }
 
   // ---- AIML-style categories (opt-in: only when the rules file has "categories") ----
   // Whole-sentence patterns, matched with Wallace's "Graphmaster": a word tree over
   // PATTERN <THAT> previous-reply <TOPIC> topic. "_" beats an exact word, which beats "*".
   const vars = {};                 // things the user told us (<set>/<get>)
+  const facts = {};                // the subset set under a computed name ("sister" -> "Ann")
   const heard = [], said = [];     // history for <input> and <that>
   let graph = null;
   if (rules.categories) {
@@ -231,9 +266,79 @@ export function createEliza(rules, { random = Math.random } = {}) {
   const swapWords = (text, map) =>
     text.split(/\s+/).map(w => (has(map, w.toUpperCase()) ? map[w.toUpperCase()] : w)).join(" ");
   const lastSentence = text => sentencesOf(text || "").pop() || ["UNKNOWN"];
+  const indent = depth => "  ".repeat(depth);
+
+  // ---- Meaning (opt-in "meaning"): when only a catch-all pattern fits, find the pattern
+  // closest in meaning using a small sentence-embedding model, and answer that instead.
+  const embedded = new Map(); // text -> vector, so each sentence is embedded once
+  const embedText = async text => {
+    if (!embedded.has(text)) embedded.set(text, await embed(text));
+    return embedded.get(text);
+  };
+  let meaningVectors = null; // one vector per rules.meaning.patterns entry
+  async function closestMeaning(text) {
+    const { patterns, vectors } = rules.meaning;
+    if (!meaningVectors) {
+      if (vectors) { // precomputed int8 vectors, packed one after another
+        const dim = vectors.length / patterns.length;
+        meaningVectors = patterns.map((_, i) => vectors.subarray(i * dim, (i + 1) * dim));
+      } else {
+        meaningVectors = [];
+        for (const pattern of patterns) meaningVectors.push(await embedText(pattern.toLowerCase()));
+      }
+    }
+    const query = await embedText(text);
+    let best = { score: -1, pattern: null };
+    meaningVectors.forEach((v, i) => {
+      const score = cosine(query, v);
+      if (score > best.score) best = { score, pattern: patterns[i] };
+    });
+    return best;
+  }
+
+  // ---- Moods (opt-in "moods"), after Colby's PARRY: levels that example phrases push up or down.
+  const levels = {};
+  for (const name of Object.keys(rules.moods || {})) vars[name] = String((levels[name] = rules.moods[name].start || 0));
+  const meter = (name) => {
+    const { max = 20 } = rules.moods[name];
+    const filled = Math.round((levels[name] / max) * 10);
+    return `${name} ${"▮".repeat(filled)}${"▯".repeat(10 - filled)} ${levels[name]}`;
+  };
+  async function updateMoods(text) {
+    const threshold = rules.moodThreshold ?? 0.5;
+    // Judge each clause on its own: "I'm sorry, I believe you" is two signals, not one blur.
+    const clauses = text.split(/[,.;:!?]+/).map(c => c.trim().toLowerCase()).filter(Boolean);
+    for (const [name, mood] of Object.entries(rules.moods)) {
+      let best = { score: threshold, phrase: null, sign: 0 };
+      for (const clause of clauses)
+        for (const [list, sign] of [[mood.up || [], 1], [mood.down || [], -1]])
+          for (const phrase of list) {
+            const score = cosine(await embedText(clause), await embedText(phrase));
+            if (score > best.score) best = { score, phrase, sign };
+          }
+      const before = levels[name];
+      const decayed = Math.max(0, before - (mood.decay ?? 1));
+      const moved = best.sign ? decayed + best.sign * (mood.step ?? 4) : decayed;
+      levels[name] = Math.min(mood.max ?? 20, Math.max(0, moved));
+      vars[name] = String(levels[name]);
+      const change = levels[name] - before;
+      const why = best.sign ? `: sounded like "${best.phrase}" (${best.score.toFixed(2)})` : "";
+      trace.push(`${meter(name)}${change ? ` (${change > 0 ? "+" : ""}${change}${why})` : ""}`);
+    }
+  }
+  let ended = false;
+  function leaving() {
+    const leave = rules.leave;
+    if (!leave) return null;
+    const why = Object.entries(leave.when).find(([name, level]) => levels[name] >= level);
+    if (!why) return null;
+    ended = true;
+    trace.push(`${why[0]} reached ${why[1]}: leave the conversation`);
+    return leave.say;
+  }
 
   // Answer one sentence (also used by <srai>). Returns null when no category matches.
-  function answer(words, depth) {
+  async function answer(words, depth) {
     if (depth > 16) return "";
     const topic = vars.topic ? vars.topic.split(" ") : ["UNKNOWN"];
     const path = [...words, "<THAT>", ...lastSentence(said[said.length - 1]), "<TOPIC>", ...topic];
@@ -241,15 +346,47 @@ export function createEliza(rules, { random = Math.random } = {}) {
     const found = graphmaster(graph, upper, 0, 0, []);
     if (!found) return null;
     const { category, stars } = found;
-    trace.push(`${"  ".repeat(depth)}matched ${category.pattern}${category.that ? ` (after "${category.that}")` : ""}`);
+
+    // Only a catch-all (*) or a loose pattern (one word plus wildcards, like MY *) fitted:
+    // try the closest pattern by meaning; for a pure catch-all, then the fallback system.
+    const literals = category.pattern.split(" ").filter(w => w !== "*" && w !== "_").length;
+    const catchAll = literals === 0, loose = literals === 1 && /[*_]/.test(category.pattern);
+    if (depth === 0 && !category.that && (catchAll || loose)) {
+      const sentence = words.join(" ");
+      if (rules.meaning && embed) {
+        const best = await closestMeaning(sentence.toLowerCase());
+        const threshold = rules.meaning.threshold ?? 0.6;
+        const fits = best.score >= threshold;
+        trace.push(`${catchAll ? "no exact match" : `only a loose match (${category.pattern})`}; ` +
+          `closest meaning "${best.pattern}" (${best.score.toFixed(2)})${fits ? "" : `, below ${threshold}`}`);
+        if (fits) return answer(best.pattern.split(" "), depth + 1);
+      }
+      if (catchAll && fallback) {
+        trace.push(`hand over to ${rules.fallback.name}`);
+        fallback.trace.length = 0;
+        const reply = await fallback.reply(sentence, { quiet: true });
+        trace.push(...fallback.trace);
+        if (reply) return reply;
+        trace.push(`${rules.fallback.name} had no keyword`);
+      }
+    }
+
+    trace.push(`${indent(depth)}matched ${category.pattern}${category.that ? ` (after "${category.that}")` : ""}`);
     const star = (section, n) => {
       const s = stars.filter(s => s.section === section)[n - 1];
       return s ? path.slice(s.from, s.to).join(" ") : "";
     };
+    // A computed variable name ("my sister's name is Ann" -> "sister").
+    const nameOf = async value =>
+      typeof value === "string" ? value : (await render(value)).trim().toLowerCase().replace(/'s$/, "");
 
-    function render(node) {
+    async function render(node) {
       if (typeof node === "string") return node;
-      if (Array.isArray(node)) return node.map(render).join("");
+      if (Array.isArray(node)) {
+        let out = "";
+        for (const n of node) out += await render(n); // in order: <set> must happen before <get>
+        return out;
+      }
       const [tag] = Object.keys(node);
       const value = node[tag];
       switch (tag) {
@@ -258,54 +395,80 @@ export function createEliza(rules, { random = Math.random } = {}) {
         case "topicstar": return star(2, value);
         case "input": return heard[heard.length - value] || "";
         case "that": return said[said.length - value] || "";
-        case "get": return vars[value] || "";
+        case "get": return vars[await nameOf(value)] || "";
         case "bot": return has(rules.bot, value) ? rules.bot[value] : "";
-        case "set": return (vars[value] = render(node.to).replace(/\s+/g, " ").trim());
-        case "think": render(value); return "";
+        case "set": {
+          const name = await nameOf(value);
+          const to = (await render(node.to)).replace(/\s+/g, " ").trim();
+          if (typeof value !== "string") { facts[name] = to; trace.push(`${indent(depth)}remember: ${name} = ${to}`); }
+          return (vars[name] = to);
+        }
+        case "key": return nameOf(value); // a computed name as text: "sister's" -> "sister"
+        case "facts": // everything remembered, or the given text when there is nothing yet
+          return Object.entries(facts).map(([k, v]) => `your ${k} is ${v}`).join(", ") || (typeof value === "string" ? value : "");
+        case "think": await render(value); return "";
         case "random": return render(value[Math.floor(random() * value.length)]);
         case "condition": {
-          const pick = value.find(c => c.value === undefined ||
-            (c.value === "*" ? !!vars[c.name] : (vars[c.name] || "").toUpperCase() === c.value.toUpperCase()));
+          const names = [];
+          for (const c of value) names.push(c.name === undefined ? undefined : await nameOf(c.name));
+          const fits = (c, i) => {
+            const v = vars[names[i]] || "";
+            if (c.above !== undefined) return Number(v) > c.above;
+            if (c.below !== undefined) return Number(v) < c.below;
+            if (c.value === undefined) return true;
+            return c.value === "*" ? !!v : v.toUpperCase() === c.value.toUpperCase();
+          };
+          const pick = value.find(fits);
           return pick ? render(pick.then) : "";
         }
         case "srai": {
-          const query = render(value);
-          trace.push(`${"  ".repeat(depth)}srai: ask again as "${query.trim()}"`);
-          return sentencesOf(query).map(s => answer(s, depth + 1) ?? "").join(" ");
+          const query = await render(value);
+          trace.push(`${indent(depth)}srai: ask again as "${query.trim()}"`);
+          const parts = [];
+          for (const s of sentencesOf(query)) parts.push((await answer(s, depth + 1)) ?? "");
+          return parts.join(" ");
         }
-        case "person": return swapWords(render(value), rules.reflect || {});
-        case "person2": return swapWords(render(value), rules.person2 || {});
-        case "gender": return swapWords(render(value), rules.gender || {});
-        case "uppercase": return render(value).toUpperCase();
-        case "lowercase": return render(value).toLowerCase();
-        case "formal": return render(value).replace(/\b\w/g, c => c.toUpperCase());
-        case "sentence": return render(value).replace(/^\s*\w/, c => c.toUpperCase());
+        case "person": return swapWords(await render(value), rules.reflect || {});
+        case "person2": return swapWords(await render(value), rules.person2 || {});
+        case "gender": return swapWords(await render(value), rules.gender || {});
+        case "uppercase": return (await render(value)).toUpperCase();
+        case "lowercase": return (await render(value)).toLowerCase();
+        case "formal": return (await render(value)).replace(/\b\w/g, c => c.toUpperCase());
+        case "sentence": return (await render(value)).replace(/^\s*\w/, c => c.toUpperCase());
         case "date": return new Date().toLocaleString();
         default: return "";
       }
     }
     // Tidy what empty <get>s leave behind: "Do you think, , that" -> "Do you think, that".
-    return render(category.template).replace(/\s+/g, " ").replace(/\s+([,.?!])/g, "$1")
-      .replace(/,(\s*,)+/g, ",").trim();
+    return (await render(category.template)).replace(/\s+/g, " ").replace(/\s+([,.?!])/g, "$1")
+      .replace(/,(\s*,)+/g, ",").replace(/,([.?!])/g, "$1").trim();
   }
 
-  function categoryReply(text) {
-    const replies = sentencesOf(text).map(words => {
+  async function categoryReply(text) {
+    if (rules.moods && embed) {
+      await updateMoods(text);
+      const bye = leaving();
+      if (bye) return bye;
+    }
+    const replies = [];
+    for (const words of sentencesOf(text)) {
       heard.push(words.join(" "));
-      const reply = answer(words, 0) ?? (rules.keywords ? keywordReply(words.join(" ")) : none());
+      const reply = (await answer(words, 0)) ?? (rules.keywords ? keywordReply(words.join(" ")) : none());
       said.push(reply);
-      return reply;
-    });
+      replies.push(reply);
+    }
     return replies.join(" ") || none();
   }
 
-  const trace = []; // why the last reply was given, step by step (shown in the UI)
-  function reply(text) {
+  const fallback = rules.fallback ? createEliza(rules.fallback, { random, embed }) : null;
+  const trace = []; // why the last reply was given, step by step (shown under each reply)
+  async function reply(text, { quiet = false } = {}) {
     trace.length = 0;
-    return graph ? categoryReply(text) : keywordReply(text);
+    return graph ? categoryReply(text) : keywordReply(text, { quiet });
   }
 
   const isQuit = text => (rules.quit || []).includes(text.toUpperCase().replace(/[^A-Z']/g, ""));
+  const moods = () => Object.keys(levels).map(name => ({ name, level: levels[name], max: rules.moods[name].max ?? 20, meter: meter(name) }));
 
-  return { initial: rules.initial, final: rules.final, reply, isQuit, trace };
+  return { initial: rules.initial, final: rules.final, reply, isQuit, trace, moods, get ended() { return ended; } };
 }

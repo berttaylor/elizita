@@ -1,0 +1,9 @@
+{
+  "name": "elizita-tools",
+  "private": true,
+  "type": "module",
+  "description": "Build-time tools. Run inside Docker: see README.",
+  "dependencies": {
+    "@huggingface/transformers": "3.8.1"
+  }
+}

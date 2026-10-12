@@ -1,0 +1,93 @@
+[
+ {
+  "name": "Calm start, flare topics raise fear",
+  "turns": [
+   [
+    "Hello",
+    "Hi. Are you one of the doctors?"
+   ],
+   [
+    "Why are you in the hospital?",
+    "I shouldn't be here."
+   ],
+   [
+    "Do you like horses?",
+    "Horse racing is the only thing that interests me."
+   ],
+   [
+    "What happened?",
+    "I had an argument with a bookie. He said he'd get even."
+   ],
+   [
+    "Is the mafia after you?",
+    "The underworld knows who I am."
+   ],
+   [
+    "Someone is following you",
+    "I sometimes think I'm being watched."
+   ],
+   [
+    "Why are you here?",
+    "I got upset. Some people were bothering me."
+   ]
+  ]
+ },
+ {
+  "name": "Apology lowers anger",
+  "turns": [
+   [
+    "You are crazy",
+    "Are you saying I'm crazy?"
+   ],
+   [
+    "You need medication",
+    "They give me something to calm me down. I don't like it."
+   ],
+   [
+    "I'm sorry, I believe you",
+    "Finally, somebody does."
+   ],
+   [
+    "How are you?",
+    "Pretty fair. I'm a little nervous."
+   ]
+  ]
+ },
+ {
+  "name": "Insults until he walks out",
+  "turns": [
+   [
+    "You are crazy",
+    "Are you saying I'm crazy?"
+   ],
+   [
+    "You are paranoid",
+    "I'm not crazy. I just know what's going on."
+   ],
+   [
+    "You are stupid",
+    "I see."
+   ],
+   [
+    "Shut up",
+    "You're starting to get on my nerves."
+   ],
+   [
+    "How are you?",
+    "How do you think? I'm sick of this place."
+   ],
+   [
+    "You belong in a mental hospital",
+    "I'm not crazy. Stop saying that."
+   ],
+   [
+    "You are insane",
+    "I'm not talking to you any more. I'm getting out of here."
+   ],
+   [
+    "You are an idiot",
+    "I'm not talking to you any more. I'm getting out of here."
+   ]
+  ]
+ }
+]

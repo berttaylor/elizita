@@ -1,0 +1,70 @@
+[
+ {
+  "name": "Matching by meaning when no pattern fits",
+  "turns": [
+   [
+    "My boss hates me",
+    "What would be your ideal career?"
+   ],
+   [
+    "Nobody understands me",
+    "Do a lot of people have trouble understanding you?"
+   ],
+   [
+    "Who built you?",
+    "I obey Dr. Richard S. Wallace."
+   ]
+  ]
+ },
+ {
+  "name": "Loose matches stay when nothing is closer",
+  "turns": [
+   [
+    "I like turtles",
+    "What else do you like?"
+   ],
+   [
+    "My mum drives me mad",
+    "Your mum drives you mad?"
+   ]
+  ]
+ },
+ {
+  "name": "Facts",
+  "turns": [
+   [
+    "My sister is called Ann",
+    "I'll remember that your sister is called Ann."
+   ],
+   [
+    "I have a dog called Rex",
+    "I'll remember that your dog is called Rex."
+   ],
+   [
+    "What is my sister's name?",
+    "Your sister is called Ann."
+   ],
+   [
+    "What is my cat called?",
+    "You haven't told me about your cat yet."
+   ],
+   [
+    "What do you know about me?",
+    "You've told me: your sister is Ann, your dog is Rex."
+   ]
+  ]
+ },
+ {
+  "name": "Nothing close: DOCTOR, then ALICE's catch-all",
+  "turns": [
+   [
+    "Perhaps",
+    "Why the uncertain tone?"
+   ],
+   [
+    "zxcv qwerty",
+    "Have you ever been to Europe?"
+   ]
+  ]
+ }
+]

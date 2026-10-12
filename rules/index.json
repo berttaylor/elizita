@@ -1,5 +1,7 @@
 [
-  { "id": "doctor-1966", "name": "DOCTOR (1966 original)" },
-  { "id": "doctor-extended", "name": "DOCTOR (extended)" },
-  { "id": "alice", "name": "A.L.I.C.E. (1995–2011)" }
+  {"id": "doctor-1966", "name": "DOCTOR (1966 original)"},
+  {"id": "doctor-extended", "name": "DOCTOR (extended)"},
+  {"id": "alice", "name": "A.L.I.C.E. (1995–2011)"},
+  {"id": "alice-plus", "name": "ALICE+ (meaning, facts)"},
+  {"id": "parry", "name": "PARRY-style mood"}
 ]

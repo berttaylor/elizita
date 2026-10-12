@@ -73,10 +73,16 @@
   </div>
 </dialog>
 <script type="module">
-  import { createEliza } from "./eliza.js";
+  import { createEliza, loadRules } from "./eliza.js";
+
+  // The sentence model for tiers that match by meaning or track mood. Same model and settings
+  // as tools/model.mjs, so the browser's vectors match the precomputed ones.
+  const TRANSFORMERS = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
+  const MODEL = "Xenova/all-MiniLM-L6-v2";
 
   const $ = id => document.getElementById(id);
   const getJSON = async url => (await fetch(url)).json();
+  const getBytes = async url => (await fetch(url)).arrayBuffer();
   // el("p", { className: "muted" }, "text", childElement, ...)
   function el(tag, props, ...children) {
     const node = Object.assign(document.createElement(tag), props);
@@ -92,8 +98,7 @@
   select.addEventListener("change", () => { location.search = "?rules=" + select.value; });
   $("rules-link").href = `rules/${current.id}.json`;
 
-  const rules = await getJSON(`rules/${current.id}.json`);
-  const eliza = createEliza(rules);
+  const rules = await loadRules(current.id, getJSON, getBytes);
 
   // ---- "About this system" pop-out: what this system is and what its rules are ----
   const about = $("about");
@@ -102,6 +107,9 @@
   $("name").textContent = rules.name;
   $("source").textContent = rules.source || "";
   $("about-text").append(...(rules.about || []).map(text => el("p", {}, text)));
+  const parts = [...rules.includes.map(id => `builds on ${sets.find(s => s.id === id)?.name || id}`),
+                 rules.fallback ? `falls back to ${rules.fallback.name}` : null].filter(Boolean);
+  if (parts.length) $("about-text").append(el("p", { className: "muted" }, `This rule set ${parts.join(" and ")}.`));
 
   // A template node from the AIML "categories" format, flattened for display.
   function flatten(node) {
@@ -110,7 +118,12 @@
     const [tag] = Object.keys(node), value = node[tag];
     if (tag === "set") return `[${node.set} = ${flatten(node.to)}]`;
     if (tag === "random") return `[one of: ${value.map(flatten).join(" | ")}]`;
-    if (tag === "condition") return `[if ${value.map(c => `${c.name || ""}=${c.value ?? "else"}: ${flatten(c.then)}`).join("; ")}]`;
+    if (tag === "condition") return `[${value.map(c => {
+      const name = typeof c.name === "string" ? c.name : flatten(c.name || "");
+      const test = c.above !== undefined ? `${name} > ${c.above}` : c.below !== undefined ? `${name} < ${c.below}`
+        : c.value !== undefined ? `${name} = ${c.value}` : null;
+      return `${test ? `if ${test}` : "otherwise"}: ${flatten(c.then)}`;
+    }).join("; ")}]`;
     if (typeof value === "string") return `[${tag} ${value}]`;
     if (typeof value === "number") return value === 1 ? `[${tag}]` : `[${tag} ${value}]`;
     return `[${tag} ${flatten(value)}]`;
@@ -199,11 +212,36 @@
   showWhy.addEventListener("change", applyWhy);
   applyWhy();
 
+  // Load the sentence model if this rule set needs it (about 23MB, cached by the browser after).
+  let embed = null;
+  const needsModel = r => r && (r.meaning || r.moods || needsModel(r.fallback));
+  if (needsModel(rules)) {
+    input.disabled = true;
+    const status = el("p", { className: "why" }, "loading the sentence model (about 23MB, only the first time)…");
+    log.append(status);
+    const { pipeline } = await import(TRANSFORMERS);
+    const extractor = await pipeline("feature-extraction", MODEL, {
+      dtype: "q8",
+      progress_callback: p => { if (p.status === "progress" && p.file?.endsWith(".onnx")) status.textContent = `loading the sentence model… ${Math.round(p.progress)}%`; },
+    });
+    embed = async text => (await extractor(text, { pooling: "mean", normalize: true })).data;
+    status.textContent = "sentence model ready";
+    input.disabled = false;
+    input.focus();
+  }
+  const eliza = createEliza(rules, { embed });
+
+  // Mood meters in the About dialog (tier 5).
+  const moodBox = el("section", {}, el("h3", {}, "Mood"), el("pre", { id: "meters" }));
+  if (rules.moods) $("about-text").parentElement.after(moodBox);
+  const showMoods = () => { if (rules.moods) $("meters").textContent = eliza.moods().map(m => m.meter).join("\n"); };
+  showMoods();
+
   say(eliza.initial, "eliza");
-  $("form").addEventListener("submit", e => {
+  $("form").addEventListener("submit", async e => {
     e.preventDefault();
     const text = input.value.trim();
-    if (!text) return;
+    if (!text || input.disabled) return;
     input.value = "";
     say(text, "you");
     if (eliza.isQuit(text)) {
@@ -211,8 +249,12 @@
       input.disabled = true;
       return;
     }
-    const reply = eliza.reply(text);
+    input.disabled = true;
+    const reply = await eliza.reply(text);
     say(reply, "eliza", [...eliza.trace]);
+    showMoods();
+    input.disabled = eliza.ended; // PARRY can walk out
+    if (!input.disabled) input.focus();
   });
 </script>
 </body>
