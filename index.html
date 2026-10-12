@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elizita</title>
+<style>
+  :root { --bg: #0b0f0b; --fg: #7dff8a; --dim: #3f8f48; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    max-width: 48rem; margin-inline: auto; padding: 1rem;
+    background: var(--bg); color: var(--fg);
+    font: 1rem/1.5 "Courier New", ui-monospace, monospace;
+  }
+  h1 { font-size: 1rem; color: var(--dim); margin: 0 0 1rem; font-weight: normal; }
+  #log { flex: 1; overflow-y: auto; white-space: pre-wrap; }
+  #log p { margin: 0 0 .75rem; }
+  #log .you { color: var(--dim); }
+  #log .you::before { content: "> "; }
+  form { display: flex; gap: .5rem; border-top: 1px solid var(--dim); padding-top: .75rem; }
+  input, button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--dim); padding: .4rem .6rem; }
+  input { flex: 1; min-width: 0; }
+  input:focus, button:focus { outline: 2px solid var(--fg); }
+</style>
+</head>
+<body>
+<h1>ELIZA · after Weizenbaum, 1966 · <a href="rules.json" style="color:inherit">rules.json</a></h1>
+<div id="log" aria-live="polite"></div>
+<form id="form">
+  <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
+  <button>Send</button>
+</form>
+<script type="module">
+  import { createEliza } from "./eliza.js";
+
+  const eliza = createEliza(await (await fetch("rules.json")).json());
+  const log = document.getElementById("log");
+  const input = document.getElementById("msg");
+
+  function say(text, who) {
+    const p = document.createElement("p");
+    p.textContent = who === "you" ? text : text.toUpperCase();
+    p.className = who;
+    log.append(p);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  say(eliza.initial, "eliza");
+  document.getElementById("form").addEventListener("submit", e => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    say(text, "you");
+    if (eliza.isQuit(text)) {
+      say(eliza.final, "eliza");
+      input.disabled = true;
+    } else {
+      say(eliza.reply(text), "eliza");
+    }
+  });
+</script>
+</body>
+</html>

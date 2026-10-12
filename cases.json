@@ -1,0 +1,34 @@
+[
+  { "name": "Weizenbaum 1966 paper transcript", "turns": [
+    ["Men are all alike.", "In what way?"],
+    ["They're always bugging us about something or other.", "Can you think of a specific example?"],
+    ["Well, my boyfriend made me come here.", "Your boyfriend made you come here?"],
+    ["He says I'm depressed much of the time.", "I am sorry to hear that you are depressed."],
+    ["It's true. I am unhappy.", "Do you think coming here will help you not to be unhappy?"],
+    ["I need some help, that much seems certain.", "What would it mean to you if you got some help?"],
+    ["Perhaps I could learn to get along with my mother.", "Tell me more about your family."],
+    ["My mother takes care of me.", "Who else in your family takes care of you?"],
+    ["My father.", "Your father?"],
+    ["You are like my father in some ways.", "What resemblance do you see?"],
+    ["You are not very aggressive but I think you don't want me to notice that.", "What makes you think I am not very aggressive?"],
+    ["You don't argue with me.", "Why do you think I don't argue with you?"],
+    ["You are afraid of me.", "Does it please you to believe I am afraid of you?"],
+    ["My father is afraid of everybody.", "What else comes to your mind when you think of your father?"],
+    ["Bullies.", "Does that have anything to do with the fact that your boyfriend made you come here?"]
+  ]},
+  { "name": "no keyword cycles through none", "turns": [
+    ["xyzzy", "I'm not sure I understand you fully."],
+    ["xyzzy", "Please go on."]
+  ]},
+  { "name": "pre substitution and goto", "turns": [
+    ["I dreamt about flying", "Really, about flying?"],
+    ["Are you a machine?", "Do computers worry you?"],
+    ["hi", "How do you do. Please state your problem."]
+  ]},
+  { "name": "synonyms and reflection", "turns": [
+    ["Do you remember my birthday?", "Did you think I would forget your birthday?"],
+    ["Everybody hates me", "Really, everybody?"],
+    ["I can't sleep", "How do you know that you can't sleep?"],
+    ["Why don't you help me", "Do you believe I don't help you?"]
+  ]}
+]
