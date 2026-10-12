@@ -21,11 +21,12 @@
   form { display: flex; gap: .5rem; border-top: 1px solid var(--dim); padding-top: .75rem; }
   input, button { font: inherit; color: inherit; background: transparent; border: 1px solid var(--dim); padding: .4rem .6rem; }
   input { flex: 1; min-width: 0; }
-  input:focus, button:focus { outline: 2px solid var(--fg); }
+  input:focus, button:focus, select:focus { outline: 2px solid var(--fg); }
+  select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--dim); }
 </style>
 </head>
 <body>
-<h1>ELIZA · after Weizenbaum, 1966 · <a href="rules.json" style="color:inherit">rules.json</a></h1>
+<h1>ELIZA · after Weizenbaum, 1966 · <select id="set" aria-label="Rule set"></select> · <a id="rules-link" style="color:inherit">rules</a></h1>
 <div id="log" aria-live="polite"></div>
 <form id="form">
   <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
@@ -34,7 +35,17 @@
 <script type="module">
   import { createEliza } from "./eliza.js";
 
-  const eliza = createEliza(await (await fetch("rules.json")).json());
+  const getJSON = async url => (await fetch(url)).json();
+
+  // Pick a rule set from rules/index.json (?rules=<id>, default: the first one).
+  const sets = await getJSON("rules/index.json");
+  const current = sets.find(s => s.id === new URLSearchParams(location.search).get("rules")) || sets[0];
+  const select = document.getElementById("set");
+  for (const s of sets) select.add(new Option(s.name, s.id, false, s === current));
+  select.addEventListener("change", () => { location.search = "?rules=" + select.value; });
+  document.getElementById("rules-link").href = `rules/${current.id}.json`;
+
+  const eliza = createEliza(await getJSON(`rules/${current.id}.json`));
   const log = document.getElementById("log");
   const input = document.getElementById("msg");
 

@@ -1,0 +1,855 @@
+{
+  "format": 1,
+  "name": "DOCTOR (extended)",
+  "source": "elizita's own expansion of DOCTOR: more keywords and modern pronoun reflection",
+  "initial": "HOW DO YOU DO. PLEASE TELL ME YOUR PROBLEM.",
+  "final": "GOODBYE. THANK YOU FOR TALKING TO ME.",
+  "quit": [
+    "BYE",
+    "GOODBYE",
+    "QUIT",
+    "EXIT"
+  ],
+  "delimiters": [
+    ",",
+    ".",
+    "BUT"
+  ],
+  "substitute": {
+    "DONT": "DON'T",
+    "CANT": "CAN'T",
+    "WONT": "WON'T",
+    "I'M": "I AM",
+    "IM": "I AM",
+    "I'VE": "I HAVE",
+    "YOU'RE": "YOU ARE",
+    "WERE": "WAS",
+    "RECOLLECT": "REMEMBER",
+    "RECALL": "REMEMBER",
+    "DREAMT": "DREAMED",
+    "DREAMS": "DREAM",
+    "MAYBE": "PERHAPS",
+    "CERTAINLY": "YES",
+    "MACHINE": "COMPUTER",
+    "MACHINES": "COMPUTER",
+    "COMPUTERS": "COMPUTER",
+    "SAME": "ALIKE",
+    "IDENTICAL": "ALIKE",
+    "EQUIVALENT": "ALIKE",
+    "APOLOGISE": "SORRY",
+    "APOLOGIZE": "SORRY",
+    "HI": "HELLO"
+  },
+  "reflect": {
+    "AM": "ARE",
+    "YOUR": "MY",
+    "ME": "YOU",
+    "MYSELF": "YOURSELF",
+    "YOURSELF": "MYSELF",
+    "I": "YOU",
+    "YOU": "I",
+    "MY": "YOUR"
+  },
+  "tags": {
+    "BE": [
+      "BE",
+      "AM",
+      "IS",
+      "ARE",
+      "WAS"
+    ],
+    "BELIEF": [
+      "BELIEF",
+      "FEEL",
+      "THINK",
+      "BELIEVE",
+      "WISH"
+    ],
+    "CANNOT": [
+      "CANNOT",
+      "CAN'T"
+    ],
+    "DESIRE": [
+      "DESIRE",
+      "WANT",
+      "NEED"
+    ],
+    "EVERYONE": [
+      "EVERYONE",
+      "EVERYBODY",
+      "NOBODY",
+      "NOONE"
+    ],
+    "FAMILY": [
+      "FAMILY",
+      "MOTHER",
+      "MOM",
+      "FATHER",
+      "DAD",
+      "SISTER",
+      "BROTHER",
+      "WIFE",
+      "HUSBAND",
+      "CHILDREN",
+      "CHILD"
+    ],
+    "HAPPY": [
+      "HAPPY",
+      "ELATED",
+      "GLAD",
+      "BETTER"
+    ],
+    "SAD": [
+      "SAD",
+      "UNHAPPY",
+      "DEPRESSED",
+      "SICK"
+    ]
+  },
+  "keywords": {
+    "COMPUTER": {
+      "rank": 50,
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "DO COMPUTERS WORRY YOU?",
+            "WHY DO YOU MENTION COMPUTERS?",
+            "WHAT DO YOU THINK MACHINES HAVE TO DO WITH YOUR PROBLEM?",
+            "DON'T YOU THINK COMPUTERS CAN HELP PEOPLE?",
+            "WHAT ABOUT MACHINES WORRIES YOU?",
+            "WHAT DO YOU THINK ABOUT MACHINES?",
+            "YOU DON'T THINK I AM A COMPUTER PROGRAM, DO YOU?"
+          ]
+        }
+      ]
+    },
+    "NAME": {
+      "rank": 15,
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "I AM NOT INTERESTED IN NAMES.",
+            "I'VE TOLD YOU BEFORE, I DON'T CARE ABOUT NAMES. PLEASE CONTINUE."
+          ]
+        }
+      ]
+    },
+    "ALIKE": {
+      "rank": 10,
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "IN WHAT WAY?",
+            "WHAT RESEMBLANCE DO YOU SEE?",
+            "WHAT DOES THAT SIMILARITY SUGGEST TO YOU?",
+            "WHAT OTHER CONNECTIONS DO YOU SEE?",
+            "WHAT DO YOU SUPPOSE THAT RESEMBLANCE IS?",
+            "WHAT IS THE CONNECTION, DO YOU SUPPOSE?",
+            "COULD THERE REALLY BE SOME CONNECTION?",
+            "HOW?"
+          ]
+        }
+      ]
+    },
+    "LIKE": {
+      "rank": 10,
+      "rules": [
+        {
+          "decomp": "* (/BE) * LIKE *",
+          "reasmb": [
+            "goto ALIKE"
+          ]
+        }
+      ]
+    },
+    "REMEMBER": {
+      "rank": 5,
+      "rules": [
+        {
+          "decomp": "* I REMEMBER *",
+          "reasmb": [
+            "DO YOU OFTEN THINK OF (4)?",
+            "DOES THINKING OF (4) BRING ANYTHING ELSE TO MIND?",
+            "WHAT ELSE DO YOU RECOLLECT?",
+            "WHY DO YOU REMEMBER (4) JUST NOW?",
+            "WHAT IN THE PRESENT SITUATION REMINDS YOU OF (4)?",
+            "WHAT IS THE CONNECTION BETWEEN ME AND (4)?"
+          ]
+        },
+        {
+          "decomp": "* DO YOU REMEMBER *",
+          "reasmb": [
+            "DID YOU THINK I WOULD FORGET (5)?",
+            "WHY DO YOU THINK I SHOULD RECALL (5) NOW?",
+            "WHAT ABOUT (5)?",
+            "goto WHAT",
+            "YOU MENTIONED (5)?"
+          ]
+        },
+        {
+          "decomp": "* YOU REMEMBER *",
+          "reasmb": [
+            "HOW COULD I FORGET (4)?",
+            "WHAT ABOUT (4) SHOULD I REMEMBER?",
+            "goto YOU"
+          ]
+        }
+      ]
+    },
+    "FORGET": {
+      "rank": 5,
+      "rules": [
+        {
+          "decomp": "* I FORGET *",
+          "reasmb": [
+            "CAN YOU THINK OF WHY YOU MIGHT FORGET (4)?",
+            "WHY CAN'T YOU REMEMBER (4)?",
+            "HOW OFTEN DO YOU THINK OF (4)?",
+            "DOES IT BOTHER YOU TO FORGET THAT?",
+            "COULD IT BE A MENTAL BLOCK?",
+            "ARE YOU GENERALLY FORGETFUL?"
+          ]
+        },
+        {
+          "decomp": "* DID YOU FORGET *",
+          "reasmb": [
+            "WHY DO YOU ASK?",
+            "ARE YOU SURE YOU TOLD ME?",
+            "WOULD IT BOTHER YOU IF I FORGOT (5)?",
+            "WHY SHOULD I RECALL (5) JUST NOW?",
+            "TELL ME MORE ABOUT (5)."
+          ]
+        }
+      ]
+    },
+    "DREAMED": {
+      "rank": 4,
+      "rules": [
+        {
+          "decomp": "* I DREAMED *",
+          "reasmb": [
+            "REALLY, (4)?",
+            "HAVE YOU EVER FANTASIZED (4) WHILE YOU WERE AWAKE?",
+            "HAVE YOU EVER DREAMED (4) BEFORE?",
+            "goto DREAM"
+          ]
+        }
+      ]
+    },
+    "DREAM": {
+      "rank": 3,
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "WHAT DOES THAT DREAM SUGGEST TO YOU?",
+            "DO YOU DREAM OFTEN?",
+            "WHAT PERSONS APPEAR IN YOUR DREAMS?",
+            "DO YOU BELIEVE THAT DREAMS HAVE SOMETHING TO DO WITH YOUR PROBLEM?"
+          ]
+        }
+      ]
+    },
+    "IF": {
+      "rank": 3,
+      "rules": [
+        {
+          "decomp": "* IF *",
+          "reasmb": [
+            "DO YOU THINK IT'S LIKELY THAT (3)?",
+            "DO YOU WISH THAT (3)?",
+            "WHAT DO YOU KNOW ABOUT (3)?",
+            "REALLY, IF (3)?"
+          ]
+        }
+      ]
+    },
+    "MY": {
+      "rank": 2,
+      "rules": [
+        {
+          "decomp": "* MY (/FAMILY) *",
+          "reasmb": [
+            "TELL ME MORE ABOUT YOUR FAMILY.",
+            "WHO ELSE IN YOUR FAMILY (4)?",
+            "YOUR (3)?",
+            "WHAT ELSE COMES TO YOUR MIND WHEN YOU THINK OF YOUR (3)?"
+          ]
+        },
+        {
+          "decomp": "* MY *",
+          "reasmb": [
+            "YOUR (3)?",
+            "WHY DO YOU SAY YOUR (3)?",
+            "DOES THAT SUGGEST ANYTHING ELSE WHICH BELONGS TO YOU?",
+            "IS IT IMPORTANT TO YOU THAT YOUR (3)?"
+          ]
+        }
+      ]
+    },
+    "EVERYONE": {
+      "rank": 2,
+      "rules": [
+        {
+          "decomp": "* (/EVERYONE) *",
+          "reasmb": [
+            "REALLY, (2)?",
+            "SURELY NOT (2).",
+            "CAN YOU THINK OF ANYONE IN PARTICULAR?",
+            "WHO, FOR EXAMPLE?",
+            "ARE YOU THINKING OF A VERY SPECIAL PERSON?",
+            "SOMEONE SPECIAL PERHAPS?",
+            "YOU HAVE A PARTICULAR PERSON IN MIND, DON'T YOU?"
+          ]
+        }
+      ]
+    },
+    "EVERYBODY": {
+      "rank": 2,
+      "goto": "EVERYONE"
+    },
+    "NOBODY": {
+      "rank": 2,
+      "goto": "EVERYONE"
+    },
+    "NOONE": {
+      "rank": 2,
+      "goto": "EVERYONE"
+    },
+    "WAS": {
+      "rank": 2,
+      "rules": [
+        {
+          "decomp": "* WAS I *",
+          "reasmb": [
+            "WHAT IF YOU WERE (4)?",
+            "DO YOU THINK YOU WERE (4)?",
+            "WERE YOU (4)?",
+            "WHAT WOULD IT MEAN IF YOU WERE (4)?",
+            "goto WHAT"
+          ]
+        },
+        {
+          "decomp": "* I WAS *",
+          "reasmb": [
+            "WERE YOU REALLY?",
+            "WHY DO YOU TELL ME YOU WERE (4) NOW?",
+            "PERHAPS I ALREADY KNOW YOU WERE (4)."
+          ]
+        },
+        {
+          "decomp": "* WAS YOU *",
+          "reasmb": [
+            "WOULD YOU LIKE TO BELIEVE I WAS (4)?",
+            "WHAT SUGGESTS THAT I WAS (4)?",
+            "WHAT DO YOU THINK?",
+            "PERHAPS I WAS (4).",
+            "WHAT IF I HAD BEEN (4)?"
+          ]
+        }
+      ]
+    },
+    "ALWAYS": {
+      "rank": 1,
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "CAN YOU THINK OF A SPECIFIC EXAMPLE?",
+            "WHEN?",
+            "WHAT INCIDENT ARE YOU THINKING OF?",
+            "REALLY, ALWAYS?"
+          ]
+        }
+      ]
+    },
+    "SORRY": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "PLEASE DON'T APOLOGISE.",
+            "APOLOGIES ARE NOT NECESSARY.",
+            "I'VE TOLD YOU THAT APOLOGIES ARE NOT REQUIRED.",
+            "IT DID NOT BOTHER ME. PLEASE CONTINUE."
+          ]
+        }
+      ]
+    },
+    "HELLO": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "HOW DO YOU DO. PLEASE STATE YOUR PROBLEM.",
+            "HI. WHAT SEEMS TO BE YOUR PROBLEM?"
+          ]
+        }
+      ]
+    },
+    "PERHAPS": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "YOU DON'T SEEM QUITE CERTAIN.",
+            "WHY THE UNCERTAIN TONE?",
+            "CAN'T YOU BE MORE POSITIVE?",
+            "YOU AREN'T SURE?",
+            "DON'T YOU KNOW?"
+          ]
+        }
+      ]
+    },
+    "AM": {
+      "rules": [
+        {
+          "decomp": "* AM I *",
+          "reasmb": [
+            "DO YOU BELIEVE YOU ARE (4)?",
+            "WOULD YOU WANT TO BE (4)?",
+            "DO YOU WISH I WOULD TELL YOU YOU ARE (4)?",
+            "WHAT WOULD IT MEAN IF YOU WERE (4)?",
+            "goto WHAT"
+          ]
+        },
+        {
+          "decomp": "*",
+          "reasmb": [
+            "WHY DO YOU SAY 'AM'?",
+            "I DON'T UNDERSTAND THAT."
+          ]
+        }
+      ]
+    },
+    "ARE": {
+      "rules": [
+        {
+          "decomp": "* ARE YOU *",
+          "reasmb": [
+            "WHY ARE YOU INTERESTED IN WHETHER I AM (4) OR NOT?",
+            "WOULD YOU PREFER IF I WEREN'T (4)?",
+            "PERHAPS I AM (4) IN YOUR FANTASIES.",
+            "DO YOU SOMETIMES THINK I AM (4)?",
+            "goto WHAT"
+          ]
+        },
+        {
+          "decomp": "* YOU ARE *",
+          "reasmb": [
+            "goto YOU"
+          ]
+        },
+        {
+          "decomp": "* ARE *",
+          "reasmb": [
+            "DID YOU THINK THEY MIGHT NOT BE (3)?",
+            "WOULD YOU LIKE IT IF THEY WERE NOT (3)?",
+            "WHAT IF THEY WERE NOT (3)?",
+            "POSSIBLY THEY ARE (3)."
+          ]
+        }
+      ]
+    },
+    "YOUR": {
+      "rules": [
+        {
+          "decomp": "* YOUR *",
+          "reasmb": [
+            "WHY ARE YOU CONCERNED OVER MY (3)?",
+            "WHAT ABOUT YOUR OWN (3)?",
+            "ARE YOU WORRIED ABOUT SOMEONE ELSE'S (3)?",
+            "REALLY, MY (3)?"
+          ]
+        }
+      ]
+    },
+    "I": {
+      "rules": [
+        {
+          "decomp": "* I (/DESIRE) *",
+          "reasmb": [
+            "WHAT WOULD IT MEAN TO YOU IF YOU GOT (4)?",
+            "WHY DO YOU WANT (4)?",
+            "SUPPOSE YOU GOT (4) SOON.",
+            "WHAT IF YOU NEVER GOT (4)?"
+          ]
+        },
+        {
+          "decomp": "* I AM (/SAD) *",
+          "reasmb": [
+            "I AM SORRY TO HEAR THAT YOU ARE (4).",
+            "DO YOU THINK COMING HERE WILL HELP YOU NOT TO BE (4)?",
+            "I'M SURE IT'S NOT PLEASANT TO BE (4).",
+            "CAN YOU EXPLAIN WHAT MADE YOU (4)?"
+          ]
+        },
+        {
+          "decomp": "* I AM (/HAPPY) *",
+          "reasmb": [
+            "HOW HAVE I HELPED YOU TO BE (4)?",
+            "HAS YOUR TREATMENT MADE YOU (4)?",
+            "WHAT MAKES YOU (4) JUST NOW?",
+            "CAN YOU EXPLAIN WHY YOU ARE SUDDENLY (4)?"
+          ]
+        },
+        {
+          "decomp": "* I WAS *",
+          "reasmb": [
+            "goto WAS"
+          ]
+        },
+        {
+          "decomp": "* I (/BELIEF) I *",
+          "reasmb": [
+            "DO YOU REALLY THINK SO?",
+            "BUT YOU ARE NOT SURE YOU (5).",
+            "DO YOU REALLY DOUBT YOU (5)?"
+          ]
+        },
+        {
+          "decomp": "* I (/BELIEF) YOU *",
+          "reasmb": [
+            "goto YOU"
+          ]
+        },
+        {
+          "decomp": "* I AM *",
+          "reasmb": [
+            "IS IT BECAUSE YOU ARE (4) THAT YOU CAME TO ME?",
+            "HOW LONG HAVE YOU BEEN (4)?",
+            "DO YOU BELIEVE IT IS NORMAL TO BE (4)?",
+            "DO YOU ENJOY BEING (4)?"
+          ]
+        },
+        {
+          "decomp": "* I (/CANNOT) *",
+          "reasmb": [
+            "HOW DO YOU KNOW THAT YOU CAN'T (4)?",
+            "HAVE YOU TRIED?",
+            "PERHAPS YOU COULD (4) NOW.",
+            "DO YOU REALLY WANT TO BE ABLE TO (4)?"
+          ]
+        },
+        {
+          "decomp": "* I DON'T *",
+          "reasmb": [
+            "DON'T YOU REALLY (4)?",
+            "WHY DON'T YOU (4)?",
+            "DO YOU WISH TO BE ABLE TO (4)?",
+            "DOES THAT TROUBLE YOU?"
+          ]
+        },
+        {
+          "decomp": "* I FEEL *",
+          "reasmb": [
+            "TELL ME MORE ABOUT SUCH FEELINGS.",
+            "DO YOU OFTEN FEEL (4)?",
+            "DO YOU ENJOY FEELING (4)?",
+            "OF WHAT DOES FEELING (4) REMIND YOU?"
+          ]
+        },
+        {
+          "decomp": "* I * YOU *",
+          "reasmb": [
+            "PERHAPS IN YOUR FANTASIES WE (3) EACH OTHER.",
+            "DO YOU WISH TO (3) ME?",
+            "YOU SEEM TO NEED TO (3) ME.",
+            "DO YOU (3) ANYONE ELSE?"
+          ]
+        },
+        {
+          "decomp": "*",
+          "reasmb": [
+            "YOU SAY (1)?",
+            "CAN YOU ELABORATE ON THAT?",
+            "DO YOU SAY (1) FOR SOME SPECIAL REASON?",
+            "THAT'S QUITE INTERESTING."
+          ]
+        }
+      ]
+    },
+    "YOU": {
+      "rules": [
+        {
+          "decomp": "* YOU REMIND ME OF *",
+          "reasmb": [
+            "goto ALIKE"
+          ]
+        },
+        {
+          "decomp": "* YOU ARE *",
+          "reasmb": [
+            "WHAT MAKES YOU THINK I AM (4)?",
+            "DOES IT PLEASE YOU TO BELIEVE I AM (4)?",
+            "DO YOU SOMETIMES WISH YOU WERE (4)?",
+            "PERHAPS YOU WOULD LIKE TO BE (4)."
+          ]
+        },
+        {
+          "decomp": "* YOU * ME *",
+          "reasmb": [
+            "WHY DO YOU THINK I (3) YOU?",
+            "YOU LIKE TO THINK I (3) YOU, DON'T YOU?",
+            "WHAT MAKES YOU THINK I (3) YOU?",
+            "REALLY, I (3) YOU?",
+            "SUPPOSE I DID (3) YOU. WHAT WOULD THAT MEAN?"
+          ]
+        },
+        {
+          "decomp": "* YOU *",
+          "reasmb": [
+            "WE WERE DISCUSSING YOU, NOT ME.",
+            "OH, I (3)?",
+            "YOU'RE NOT REALLY TALKING ABOUT ME, ARE YOU?",
+            "WHAT ARE YOUR FEELINGS NOW?"
+          ]
+        }
+      ]
+    },
+    "YES": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "YOU SEEM TO BE QUITE POSITIVE.",
+            "YOU ARE SURE.",
+            "I SEE.",
+            "I UNDERSTAND."
+          ]
+        }
+      ]
+    },
+    "NO": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "ARE YOU SAYING NO JUST TO BE NEGATIVE?",
+            "YOU ARE BEING A BIT NEGATIVE.",
+            "WHY NOT?",
+            "WHY 'NO'?"
+          ]
+        }
+      ]
+    },
+    "CAN": {
+      "rules": [
+        {
+          "decomp": "* CAN YOU *",
+          "reasmb": [
+            "YOU BELIEVE I CAN (4), DON'T YOU?",
+            "goto WHAT",
+            "YOU WANT ME TO BE ABLE TO (4).",
+            "PERHAPS YOU WOULD LIKE TO BE ABLE TO (4) YOURSELF."
+          ]
+        },
+        {
+          "decomp": "* CAN I *",
+          "reasmb": [
+            "WHETHER OR NOT YOU CAN (4) DEPENDS ON YOU MORE THAN ON ME.",
+            "DO YOU WANT TO BE ABLE TO (4)?",
+            "PERHAPS YOU DON'T WANT TO (4).",
+            "goto WHAT"
+          ]
+        }
+      ]
+    },
+    "WHAT": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "WHY DO YOU ASK?",
+            "DOES THAT QUESTION INTEREST YOU?",
+            "WHAT IS IT YOU REALLY WANT TO KNOW?",
+            "ARE SUCH QUESTIONS MUCH ON YOUR MIND?",
+            "WHAT ANSWER WOULD PLEASE YOU MOST?",
+            "WHAT DO YOU THINK?",
+            "WHAT COMES TO MIND WHEN YOU ASK THAT?",
+            "HAVE YOU ASKED SUCH QUESTIONS BEFORE?"
+          ]
+        }
+      ]
+    },
+    "HOW": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "goto WHAT"
+          ]
+        }
+      ]
+    },
+    "WHEN": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "goto WHAT"
+          ]
+        }
+      ]
+    },
+    "BECAUSE": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "IS THAT THE REAL REASON?",
+            "DON'T ANY OTHER REASONS COME TO MIND?",
+            "DOES THAT REASON SEEM TO EXPLAIN ANYTHING ELSE?",
+            "WHAT OTHER REASONS MIGHT THERE BE?"
+          ]
+        }
+      ]
+    },
+    "WHY": {
+      "rules": [
+        {
+          "decomp": "* WHY DON'T YOU *",
+          "reasmb": [
+            "DO YOU BELIEVE I DON'T (5)?",
+            "PERHAPS I WILL (5) IN GOOD TIME.",
+            "SHOULD YOU (5) YOURSELF?",
+            "YOU WANT ME TO (5)?",
+            "goto WHAT"
+          ]
+        },
+        {
+          "decomp": "* WHY CAN'T I *",
+          "reasmb": [
+            "DO YOU THINK YOU SHOULD BE ABLE TO (5)?",
+            "DO YOU WANT TO BE ABLE TO (5)?",
+            "DO YOU BELIEVE THIS WILL HELP YOU TO (5)?",
+            "HAVE YOU ANY IDEA WHY YOU CAN'T (5)?",
+            "goto WHAT"
+          ]
+        },
+        {
+          "decomp": "*",
+          "reasmb": [
+            "goto WHAT"
+          ]
+        }
+      ]
+    },
+    "DIFFERENT": {
+      "rules": [
+        {
+          "decomp": "*",
+          "reasmb": [
+            "HOW IS IT DIFFERENT?",
+            "WHAT DIFFERENCES DO YOU SEE?",
+            "WHAT DOES THAT DIFFERENCE SUGGEST TO YOU?",
+            "WHAT OTHER DISTINCTIONS DO YOU SEE?"
+          ]
+        }
+      ]
+    },
+    "I'M": {
+      "goto": "I"
+    },
+    "IM": {
+      "goto": "I"
+    },
+    "I'VE": {
+      "goto": "I"
+    },
+    "YOU'RE": {
+      "goto": "YOU"
+    },
+    "WERE": {
+      "rank": 2,
+      "goto": "WAS"
+    },
+    "RECOLLECT": {
+      "rank": 5,
+      "goto": "REMEMBER"
+    },
+    "RECALL": {
+      "rank": 5,
+      "goto": "REMEMBER"
+    },
+    "DREAMT": {
+      "rank": 4,
+      "goto": "DREAMED"
+    },
+    "DREAMS": {
+      "rank": 3,
+      "goto": "DREAM"
+    },
+    "MAYBE": {
+      "goto": "PERHAPS"
+    },
+    "CERTAINLY": {
+      "goto": "YES"
+    },
+    "MACHINE": {
+      "rank": 50,
+      "goto": "COMPUTER"
+    },
+    "MACHINES": {
+      "rank": 50,
+      "goto": "COMPUTER"
+    },
+    "COMPUTERS": {
+      "rank": 50,
+      "goto": "COMPUTER"
+    },
+    "SAME": {
+      "rank": 10,
+      "goto": "ALIKE"
+    },
+    "IDENTICAL": {
+      "rank": 10,
+      "goto": "ALIKE"
+    },
+    "EQUIVALENT": {
+      "rank": 10,
+      "goto": "ALIKE"
+    },
+    "APOLOGISE": {
+      "goto": "SORRY"
+    },
+    "APOLOGIZE": {
+      "goto": "SORRY"
+    },
+    "HI": {
+      "goto": "HELLO"
+    }
+  },
+  "memory": {
+    "keyword": "MY",
+    "rules": [
+      {
+        "decomp": "* MY *",
+        "reasmb": "LET'S DISCUSS FURTHER WHY YOUR (3)."
+      },
+      {
+        "decomp": "* MY *",
+        "reasmb": "EARLIER YOU SAID YOUR (3)."
+      },
+      {
+        "decomp": "* MY *",
+        "reasmb": "BUT YOUR (3)."
+      },
+      {
+        "decomp": "* MY *",
+        "reasmb": "DOES THAT HAVE ANYTHING TO DO WITH THE FACT THAT YOUR (3)?"
+      }
+    ]
+  },
+  "none": [
+    "I'M NOT SURE I UNDERSTAND YOU FULLY.",
+    "PLEASE GO ON.",
+    "WHAT DOES THAT SUGGEST TO YOU?",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS?",
+    "THAT IS INTERESTING. PLEASE CONTINUE.",
+    "TELL ME MORE ABOUT THAT."
+  ]
+}

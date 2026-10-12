@@ -1,0 +1,1344 @@
+[
+ {
+  "name": "CACM 1966 transcript, then Hay's imagined continuation",
+  "turns": [
+   [
+    "Men are all alike.",
+    "IN WHAT WAY"
+   ],
+   [
+    "They're always bugging us about something or other.",
+    "CAN YOU THINK OF A SPECIFIC EXAMPLE"
+   ],
+   [
+    "Well, my boyfriend made me come here.",
+    "YOUR BOYFRIEND MADE YOU COME HERE"
+   ],
+   [
+    "He says I'm depressed much of the time.",
+    "I AM SORRY TO HEAR YOU ARE DEPRESSED"
+   ],
+   [
+    "It's true. I am unhappy.",
+    "DO YOU THINK COMING HERE WILL HELP YOU NOT TO BE UNHAPPY"
+   ],
+   [
+    "I need some help, that much seems certain.",
+    "WHAT WOULD IT MEAN TO YOU IF YOU GOT SOME HELP"
+   ],
+   [
+    "Perhaps I could learn to get along with my mother.",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "My mother takes care of me.",
+    "WHO ELSE IN YOUR FAMILY TAKES CARE OF YOU"
+   ],
+   [
+    "My father.",
+    "YOUR FATHER"
+   ],
+   [
+    "You are like my father in some ways.",
+    "WHAT RESEMBLANCE DO YOU SEE"
+   ],
+   [
+    "You are not very aggressive but I think you don't want me to notice that.",
+    "WHAT MAKES YOU THINK I AM NOT VERY AGGRESSIVE"
+   ],
+   [
+    "You don't argue with me.",
+    "WHY DO YOU THINK I DON'T ARGUE WITH YOU"
+   ],
+   [
+    "You are afraid of me.",
+    "DOES IT PLEASE YOU TO BELIEVE I AM AFRAID OF YOU"
+   ],
+   [
+    "My father is afraid of everybody.",
+    "WHAT ELSE COMES TO MIND WHEN YOU THINK OF YOUR FATHER"
+   ],
+   [
+    "Bullies.",
+    "DOES THAT HAVE ANYTHING TO DO WITH THE FACT THAT YOUR BOYFRIEND MADE YOU COME HERE"
+   ],
+   [
+    "My boyfriend loves me, he's not a bully.",
+    "WHY DO YOU SAY YOUR BOYFRIEND LOVES YOU"
+   ],
+   [
+    "He annoys me sometimes, but I know he cares about me.",
+    "YOU SAY YOU KNOW HE CARES ABOUT YOU"
+   ],
+   [
+    "That's why he wanted me to come here, because he knows I'm unhappy.",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "I didn't.",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "He knows I'm not getting on with my family and thought it would help me if I talked to someone.",
+    "DO YOU THINK ITS LIKELY THAT YOU TALKED TO SOMEONE"
+   ],
+   [
+    "That's why I'm talking to you.",
+    "DOES THAT QUESTION INTEREST YOU"
+   ],
+   [
+    "What question?",
+    "WHAT IS IT YOU REALLY WANT TO KNOW"
+   ],
+   [
+    "How to have a good relationship with my parents.",
+    "DOES THAT SUGGEST ANYTHING ELSE WHICH BELONGS TO YOU"
+   ],
+   [
+    "A brighter future?",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "If I could get on better with my parents I'd be a lot happier.",
+    "DO YOU WISH THAT YOU COULD GET ON BETTER WITH YOUR PARENTS I'D BE A LOT HAPPIER"
+   ],
+   [
+    "I do.",
+    "DO YOU SAY YOU DO FOR SOME SPECIAL REASON"
+   ],
+   [
+    "Not really.",
+    "DOES THAT HAVE ANYTHING TO DO WITH THE FACT THAT YOUR MOTHER"
+   ],
+   [
+    "I'll never be as good as my sister in my mom's eyes.",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "My sister did better at school than me and she's always got on better with my parents.",
+    "WHO ELSE IN YOUR FAMILY DID BETTER AT SCHOOL THAN YOU AND SHE'S ALWAYS GOT ON BETTER WITH YOUR PARENTS"
+   ],
+   [
+    "It's just me and my sister.",
+    "YOUR SISTER"
+   ],
+   [
+    "That's right.",
+    "BUT YOUR MOTHER TAKES CARE OF YOU"
+   ],
+   [
+    "She does, sure. She's not mean to me. It's just little things she does, probably without even knowing she's doing them, that make me feel stupid and not as loved as my sister.",
+    "WHAT ELSE COMES TO MIND WHEN YOU THINK OF YOUR SISTER"
+   ],
+   [
+    "I don't think she likes me much either.",
+    "DON'T YOU REALLY THINK SHE LIKES YOU MUCH EITHER"
+   ],
+   [
+    "She's older than me and I was always her silly little annoying sister.",
+    "WERE YOU REALLY"
+   ],
+   [
+    "She thought so.",
+    "BUT YOUR FATHER"
+   ],
+   [
+    "He dotes on her too.",
+    "PLEASE GO ON"
+   ]
+  ]
+ },
+ {
+  "name": "Hay 2026: not really a Turing test",
+  "turns": [
+   [
+    "How much is 2 and 2?",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "Because I want to know.",
+    "IS THAT THE REAL REASON"
+   ],
+   [
+    "Yes.",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "Just tell me what 2 plus 2 equals.",
+    "DOES THAT QUESTION INTEREST YOU"
+   ],
+   [
+    "I'm trying to decide if you are human or not.",
+    "DO YOU THINK ITS LIKELY THAT I ARE HUMAN OR NOT"
+   ],
+   [
+    "Why will you not answer a simple question?",
+    "WHAT IS IT YOU REALLY WANT TO KNOW"
+   ],
+   [
+    "I want to know if you can add 2 and 2.",
+    "DO YOU WISH THAT I CAN ADD 2 AND 2"
+   ],
+   [
+    "Yes, please.",
+    "YOU ARE SURE"
+   ],
+   [
+    "Yes, very sure.",
+    "I SEE"
+   ],
+   [
+    "Good. So what's the answer?",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ]
+  ]
+ },
+ {
+  "name": "Weizenbaum: alternative 'men are all alike'",
+  "turns": [
+   [
+    "Men are all alike.",
+    "IN WHAT WAY"
+   ],
+   [
+    "They're always bugging us about one thing and another.",
+    "CAN YOU THINK OF A SPECIFIC EXAMPLE"
+   ],
+   [
+    "Well, my boyfriend made me come here.",
+    "YOUR BOYFRIEND MADE YOU COME HERE"
+   ],
+   [
+    "He noticed that I'm depressed much of the time.",
+    "I AM SORRY TO HEAR YOU ARE DEPRESSED"
+   ],
+   [
+    "He's right. I am unhappy.",
+    "DO YOU THINK COMING HERE WILL HELP YOU NOT TO BE UNHAPPY"
+   ],
+   [
+    "Perhaps I could learn to get along with father.",
+    "YOU DON'T SEEM QUITE CERTAIN"
+   ],
+   [
+    "You are like my father in some ways.",
+    "WHAT RESEMBLANCE DO YOU SEE"
+   ],
+   [
+    "You are very agressive but I don't think you want me to notice that.",
+    "WHAT MAKES YOU THINK I AM VERY AGRESSIVE"
+   ],
+   [
+    "These obvious attempts to steer the conversation makes me angry.",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ]
+  ]
+ },
+ {
+  "name": "Weizenbaum: 'I am very unhappy these days'",
+  "turns": [
+   [
+    "I am very unhappy these days.",
+    "I AM SORRY TO HEAR YOU ARE UNHAPPY"
+   ],
+   [
+    "Can you help me, do you think.",
+    "YOU BELIEVE I CAN HELP YOU DON'T YOU"
+   ],
+   [
+    "I don't know what to believe.",
+    "DON'T YOU REALLY KNOW WHAT TO BELIEVE"
+   ],
+   [
+    "Well, what can one believe in.",
+    "WHY DO YOU ASK"
+   ]
+  ]
+ },
+ {
+  "name": "Hay: every DOCTOR response",
+  "turns": [
+   [
+    "Sorry, I'm a bit nervous.",
+    "PLEASE DON'T APOLIGIZE"
+   ],
+   [
+    "I remember The house where I was born, The little window where the sun Came peeping in at morn.",
+    "DO YOU OFTEN THINK OF THE HOUSE WHERE YOU WAS BORN"
+   ],
+   [
+    "Do you remember the Gulf of Mexico?",
+    "DID YOU THINK I WOULD FORGET THE GULF OF MEXICO"
+   ],
+   [
+    "What if the moon is made of cheese?",
+    "DO YOU THINK ITS LIKELY THAT THE MOON IS MADE OF CHEESE"
+   ],
+   [
+    "I dreamt that I dwelt in marble halls",
+    "REALLY, THAT YOU DWELT IN MARBLE HALLS"
+   ],
+   [
+    "I dreamed of you.",
+    "HAVE YOU EVER FANTASIED OF I WHILE YOU WERE AWAKE"
+   ],
+   [
+    "in my dream i was pregnant, but I'm male.",
+    "WHAT DOES THAT DREAM SUGGEST TO YOU"
+   ],
+   [
+    "My dreams are weird.",
+    "DO YOU DREAM OFTEN"
+   ],
+   [
+    "How do you do?",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "When am I going to be a grown-up?",
+    "DOES THAT QUESTION INTEREST YOU"
+   ],
+   [
+    "he and I are so alike!",
+    "IN WHAT WAY"
+   ],
+   [
+    "things are not the same between us as they once were",
+    "WHAT RESEMBLANCE DO YOU SEE"
+   ],
+   [
+    "Certainly not!",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "Perhaps she'll die!",
+    "YOU DON'T SEEM QUITE CERTAIN"
+   ],
+   [
+    "Maybe it's because I'm a Londoner",
+    "WHY THE UNCERTAIN TONE"
+   ],
+   [
+    "A rose by any other name would smell as sweet",
+    "I AM NOT INTERESTED IN NAMES"
+   ],
+   [
+    "Parlez-vous Italiano mademoiselle?",
+    "I AM SORRY, I SPEAK ONLY ENGLISH"
+   ],
+   [
+    "Hello there!",
+    "HOW DO YOU DO. PLEASE STATE YOUR PROBLEM"
+   ],
+   [
+    "what kind of computer flew to the moon",
+    "DO COMPUTERS WORRY YOU"
+   ],
+   [
+    "You have the soul of a new machine.",
+    "WHY DO YOU MENTION COMPUTERS"
+   ],
+   [
+    "Do you think we will find a cybernetic ecology where we are all watched over by machines of loving grace?",
+    "WHAT DO YOU THINK MACHINES HAVE TO DO WITH YOUR PROBLEM"
+   ],
+   [
+    "Pablo Picasso said \"Computers are useless. They can only give you answers.\"",
+    "DON'T YOU THINK COMPUTERS CAN HELP PEOPLE"
+   ],
+   [
+    "Am I a lost cause?",
+    "DO YOU BELIEVE YOU ARE A LOST CAUSE"
+   ],
+   [
+    "Never am, no.",
+    "WHY DO YOU SAY 'AM'"
+   ],
+   [
+    "Are you mad?",
+    "WHY ARE YOU INTERESTED IN WHETHER I AM MAD OR NOT"
+   ],
+   [
+    "Humans eh? Are we nuts?",
+    "DID YOU THINK THEY MIGHT NOT BE WE NUTS"
+   ],
+   [
+    "Your words are starting to annoy me.",
+    "WHY ARE YOU CONCERNED OVER MY WORDS ARE STARTING TO ANNOY YOU"
+   ],
+   [
+    "Was I wrong to speak my mind?",
+    "WHAT IF YOU WERE WRONG TO SPEAK YOUR MIND"
+   ],
+   [
+    "I was telling you about my crazy idea",
+    "WERE YOU REALLY"
+   ],
+   [
+    "That was you trying to make me feel better?",
+    "WOULD YOU LIKE TO BELIEVE I WAS TRYING TO MAKE YOU FEEL BETTER"
+   ],
+   [
+    "That was the problem we had to solve when we found out.",
+    "WHAT IS IT YOU REALLY WANT TO KNOW"
+   ],
+   [
+    "Were you going to tell me how to feel better about myself?",
+    "WHAT SUGGESTS THAT I WAS GOING TO TELL YOU HOW TO FEEL BETTER ABOUT YOURSELF"
+   ],
+   [
+    "You're mad at me",
+    "WHAT MAKES YOU THINK I AM MAD AT YOU"
+   ],
+   [
+    "I'm a good girl, I am.",
+    "IS IT BECAUSE YOU ARE A GOOD GIRL THAT YOU CAME TO ME"
+   ],
+   [
+    "I need to understand why I'm unhappy",
+    "WHAT WOULD IT MEAN TO YOU IF YOU GOT TO UNDERSTAND WHY YOU'RE UNHAPPY"
+   ],
+   [
+    "I know I am sick in the head",
+    "I AM SORRY TO HEAR YOU ARE SICK"
+   ],
+   [
+    "I am not a happy bunny",
+    "HOW HAVE I HELPED YOU TO BE HAPPY"
+   ],
+   [
+    "I were flummoxed",
+    "WHY DO YOU TELL ME YOU WERE FLUMMOXED NOW"
+   ],
+   [
+    "I think I should go.",
+    "DO YOU REALLY THINK SO"
+   ],
+   [
+    "I feel you understand me.",
+    "WHY DO YOU THINK I UNDERSTAND YOU"
+   ],
+   [
+    "I am so lonely now.",
+    "HOW LONG HAVE YOU BEEN SO LONELY NOW"
+   ],
+   [
+    "I cannot believe he really loves me.",
+    "HOW DO YOU KNOW YOU CAN'T BELIEVE HE REALLY LOVES YOU"
+   ],
+   [
+    "I don't get out much now I'm old.",
+    "DON'T YOU REALLY GET OUT MUCH NOW YOU'RE OLD"
+   ],
+   [
+    "I feel lost",
+    "TELL ME MORE ABOUT SUCH FEELINGS"
+   ],
+   [
+    "I hate you",
+    "PERHAPS IN YOUR FANTASY WE HATE EACH OTHER"
+   ],
+   [
+    "I can talk the hind leg off a donkey.",
+    "YOU SAY YOU CAN TALK THE HIND LEG OFF A DONKEY"
+   ],
+   [
+    "You remind me of the old days.",
+    "WHAT DOES THAT SIMILARITY SUGGEST TO YOU"
+   ],
+   [
+    "You are wrong about that!",
+    "DOES IT PLEASE YOU TO BELIEVE I AM WRONG ABOUT THAT"
+   ],
+   [
+    "Clearly you hate me.",
+    "YOU LIKE TO THINK I HATE YOU - DON'T YOU"
+   ],
+   [
+    "You failed to grasp the nettle.",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "Yes, I think so.",
+    "YOU ARE SURE"
+   ],
+   [
+    "No, I don't want to go out with you.",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "My brother ate my hamster.",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "Oh my head hurts!",
+    "YOUR HEAD HURTS"
+   ],
+   [
+    "Can you believe it!",
+    "YOU BELIEVE I CAN BELIEVE IT DON'T YOU"
+   ],
+   [
+    "Can I have a glass of water?",
+    "WHETHER OR NOT YOU CAN HAVE A GLASS OF WATER DEPENDS ON YOU MORE THAN ON ME"
+   ],
+   [
+    "What an idiot.",
+    "ARE SUCH QUESTIONS MUCH ON YOUR MIND"
+   ],
+   [
+    "Because then she would know I loved her.",
+    "IS THAT THE REAL REASON"
+   ],
+   [
+    "Why don't you just switch off your television set and go and do something less boring instead?",
+    "DO YOU BELIEVE I DON'T JUST SWITCH OFF MY TELEVISION SET AND GO AND DO SOMETHING LESS BORING INSTEAD"
+   ],
+   [
+    "why cant i eat cookies in bed",
+    "DO YOU THINK YOU SHOULD BE ABLE TO EAT COOKIES IN BED"
+   ],
+   [
+    "why can't people get along?",
+    "WHAT ANSWER WOULD PLEASE YOU MOST"
+   ],
+   [
+    "Everyone can get lost!",
+    "REALLY, EVERYONE"
+   ],
+   [
+    "Everybody hates me.",
+    "SURELY NOT EVERYBODY"
+   ],
+   [
+    "Nobody loves me.",
+    "CAN YOU THINK OF ANYONE IN PARTICULAR"
+   ],
+   [
+    "Noone cares",
+    "WHO, FOR EXAMPLE"
+   ],
+   [
+    "The postman always rings twice.",
+    "CAN YOU THINK OF A SPECIFIC EXAMPLE"
+   ],
+   [
+    "She was not like the others.",
+    "WHAT OTHER CONNECTIONS DO YOU SEE"
+   ],
+   [
+    "she wasn't like you",
+    "OH, I"
+   ]
+  ]
+ },
+ {
+  "name": "Boston Globe, 22 Sep 1966",
+  "turns": [
+   [
+    "hello.",
+    "HOW DO YOU DO. PLEASE STATE YOUR PROBLEM"
+   ],
+   [
+    "my foot hurts",
+    "YOUR FOOT HURTS"
+   ],
+   [
+    "it aches mostly around the toes",
+    "EARLIER YOU SAID YOUR FOOT HURTS"
+   ],
+   [
+    "right",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "what is your problem",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "because",
+    "IS THAT THE REAL REASON"
+   ],
+   [
+    "no - i was simply picking on you",
+    "WERE YOU REALLY"
+   ],
+   [
+    "what can i do about my toes",
+    "WHY DO YOU SAY YOUR TOES"
+   ],
+   [
+    "they still hurt",
+    "PLEASE GO ON"
+   ],
+   [
+    "some vague pains in the chest",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "the head bothers me too sometimes",
+    "EARLIER YOU SAID YOUR TOES"
+   ],
+   [
+    "you wanted to know what else hurt me",
+    "WHY DO YOU THINK I WANTED TO KNOW WHAT ELSE HURT YOU"
+   ],
+   [
+    "you are the doctor",
+    "WHAT MAKES YOU THINK I AM THE DOCTOR"
+   ],
+   [
+    "the operator of this machine assured me that you were the doctor",
+    "DO COMPUTERS WORRY YOU"
+   ],
+   [
+    "in general or in specific",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ],
+   [
+    "i am enjoying myself",
+    "IS IT BECAUSE YOU ARE ENJOYING YOURSELF THAT YOU CAME TO ME"
+   ],
+   [
+    "i was looking for greater enjoyment when i came to you",
+    "WHY DO YOU TELL ME YOU WERE LOOKING FOR GREATER ENJOYMENT WHEN YOU CAME TO I NOW"
+   ],
+   [
+    "yes - do you think i am being sarcastic",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "not sure - just confident",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "superiority",
+    "PLEASE GO ON"
+   ],
+   [
+    "more and more every moment",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "would you understand",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "i also feel you don't really want to help me",
+    "YOU LIKE TO THINK I DON'T REALLY WANT TO HELP YOU - DON'T YOU"
+   ],
+   [
+    "i don't like to feel it",
+    "DON'T YOU REALLY LIKE TO FEEL IT"
+   ],
+   [
+    "no",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "yes",
+    "YOU ARE SURE"
+   ],
+   [
+    "treat me immediately",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ],
+   [
+    "all parts hurt and then some",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "maladjustment",
+    "PLEASE GO ON"
+   ],
+   [
+    "no",
+    "YOU ARE BEING A BIT NEGATIVE"
+   ],
+   [
+    "because you are putting me on",
+    "DON'T ANY OTHER REASONS COME TO MIND"
+   ],
+   [
+    "yes - you seem arrogant and silly",
+    "I SEE"
+   ],
+   [
+    "you would",
+    "OH, I WOULD"
+   ],
+   [
+    "who else",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "i am calling you a fink",
+    "HOW LONG HAVE YOU BEEN CALLING I A FINK"
+   ],
+   [
+    "since you started behaving unethically",
+    "YOU'RE NOT REALLY TALKING ABOUT ME - ARE YOU"
+   ],
+   [
+    "i despise you",
+    "PERHAPS IN YOUR FANTASY WE DESPISE EACH OTHER"
+   ],
+   [
+    "perhaps i actually despise myself",
+    "YOU DON'T SEEM QUITE CERTAIN"
+   ],
+   [
+    "i feel more unsure as the moments pass",
+    "TELL ME MORE ABOUT SUCH FEELINGS"
+   ],
+   [
+    "you are losing control of your mind",
+    "DOES IT PLEASE YOU TO BELIEVE I AM LOSING CONTROL OF MY MIND"
+   ],
+   [
+    "you are more to be pitied than censured",
+    "DO YOU SOMETIMES WISH YOU WERE MORE TO BE PITIED THAN CENSURED"
+   ],
+   [
+    "i've had enough - goodbye",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ]
+  ]
+ },
+ {
+  "name": "Weizenbaum 1967: the communications explosion",
+  "turns": [
+   [
+    "Doctor, my head hurts",
+    "YOUR HEAD HURTS"
+   ],
+   [
+    "My toe hurts too",
+    "WHY DO YOU SAY YOUR TOE HURTS TOO"
+   ],
+   [
+    "No I don't",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "How much is 2 and 2",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "Because I want to know",
+    "IS THAT THE REAL REASON"
+   ]
+  ]
+ },
+ {
+  "name": "Peter G. Neumann, 1966",
+  "turns": [
+   [
+    "i want to write music.",
+    "WHAT WOULD IT MEAN TO YOU IF YOU GOT TO WRITE MUSIC"
+   ],
+   [
+    "i would be happy",
+    "YOU SAY YOU WOULD BE HAPPY"
+   ],
+   [
+    "yes.",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "yes",
+    "YOU ARE SURE"
+   ],
+   [
+    "o.k.",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "i hate my dog",
+    "YOUR DOG"
+   ],
+   [
+    "he loves somebody else",
+    "BUT YOUR DOG"
+   ],
+   [
+    "he loves my cat",
+    "WHY DO YOU SAY YOUR CAT"
+   ],
+   [
+    "my mother loves my cat",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "he's dead",
+    "PLEASE GO ON"
+   ],
+   [
+    "yes my nose",
+    "DOES THAT SUGGEST ANYTHING ELSE WHICH BELONGS TO YOU"
+   ],
+   [
+    "my ears",
+    "IS IT IMPORTANT TO YOU THAT YOUR EARS"
+   ],
+   [
+    "you are a stupid doctor",
+    "WHAT MAKES YOU THINK I AM A STUPID DOCTOR"
+   ],
+   [
+    "you don't know anything",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "i don't know anything either",
+    "DON'T YOU REALLY KNOW ANYTHING EITHER"
+   ],
+   [
+    "no",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "no",
+    "YOU ARE BEING A BIT NEGATIVE"
+   ],
+   [
+    "i love you",
+    "PERHAPS IN YOUR FANTASY WE LOVE EACH OTHER"
+   ],
+   [
+    "i love you truly",
+    "DO YOU WISH TO LOVE ME"
+   ],
+   [
+    "yes",
+    "I SEE"
+   ],
+   [
+    "i love you",
+    "YOU SEEM TO NEED TO LOVE ME"
+   ],
+   [
+    "yes",
+    "I UNDERSTAND"
+   ],
+   [
+    "i love my fater",
+    "YOUR FATER"
+   ],
+   [
+    "my father",
+    "WHO ELSE IN YOUR FAMILY"
+   ],
+   [
+    "i like pancakes",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "with maple syrup",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "dog mother father sister cat",
+    "BUT YOUR CAT"
+   ],
+   [
+    "cat dog mother father",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ],
+   [
+    "sex",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "yes",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "shall we go on",
+    "BUT YOUR MOTHER LOVES YOUR CAT"
+   ],
+   [
+    "yes. she has a catasstrophy.",
+    "YOU ARE SURE"
+   ],
+   [
+    "i love poetry too",
+    "DO YOU SAY YOU LOVE POETRY TOO FOR SOME SPECIAL REASON"
+   ],
+   [
+    "no",
+    "WHY NOT"
+   ],
+   [
+    "what if i had said yes",
+    "DO YOU THINK ITS LIKELY THAT YOU HAD SAID YES"
+   ],
+   [
+    "no",
+    "WHY 'NO'"
+   ],
+   [
+    "negative",
+    "PLEASE GO ON"
+   ],
+   [
+    "i hate maple syrup",
+    "THAT'S QUITE INTERESTING"
+   ],
+   [
+    "i love my wife",
+    "YOUR WIFE"
+   ],
+   [
+    "i hate my wife",
+    "WHAT ELSE COMES TO MIND WHEN YOU THINK OF YOUR WIFE"
+   ],
+   [
+    "love",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "my REDACTED",
+    "WHY DO YOU SAY YOUR REDACTED"
+   ],
+   [
+    "it is sore",
+    "BUT YOUR NOSE"
+   ],
+   [
+    "that was before",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ],
+   [
+    "do you like sex",
+    "OH, I LIKE SEX"
+   ],
+   [
+    "do you like women",
+    "YOU'RE NOT REALLY TALKING ABOUT ME - ARE YOU"
+   ],
+   [
+    "yes",
+    "I SEE"
+   ],
+   [
+    "yes",
+    "I UNDERSTAND"
+   ],
+   [
+    "do you like men",
+    "WHAT ARE YOUR FEELINGS NOW"
+   ],
+   [
+    "sad",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "i am very sad",
+    "I AM SORRY TO HEAR YOU ARE SAD"
+   ],
+   [
+    "do you like pancakes",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "i hate your mother",
+    "YOU SAY YOU HATE MY MOTHER"
+   ],
+   [
+    "she smells",
+    "PLEASE GO ON"
+   ],
+   [
+    "garbage",
+    "LETS DISCUSS FURTHER WHY YOUR EARS"
+   ],
+   [
+    "my ears hurt from standing on them",
+    "DOES THAT SUGGEST ANYTHING ELSE WHICH BELONGS TO YOU"
+   ],
+   [
+    "i can't sleep",
+    "HOW DO YOU KNOW YOU CAN'T SLEEP"
+   ],
+   [
+    "i am awake all night",
+    "IS IT BECAUSE YOU ARE AWAKE ALL NIGHT THAT YOU CAME TO ME"
+   ],
+   [
+    "yes",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "positive",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "yes",
+    "YOU ARE SURE"
+   ],
+   [
+    "can you help me sleep",
+    "YOU BELIEVE I CAN HELP YOU SLEEP DON'T YOU"
+   ],
+   [
+    "yes",
+    "I SEE"
+   ],
+   [
+    "should i drink more",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "should i get drunk to sleep",
+    "DO YOU SAY SHOULD YOU GET DRUNK TO SLEEP FOR SOME SPECIAL REASON"
+   ],
+   [
+    "i can't sleep",
+    "HAVE YOU TRIED"
+   ],
+   [
+    "yes",
+    "I UNDERSTAND"
+   ],
+   [
+    "yes",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "you are a fink",
+    "DOES IT PLEASE YOU TO BELIEVE I AM A FINK"
+   ],
+   [
+    "yes",
+    "YOU ARE SURE"
+   ],
+   [
+    "no",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "maybe",
+    "YOU DON'T SEEM QUITE CERTAIN"
+   ],
+   [
+    "no",
+    "YOU ARE BEING A BIT NEGATIVE"
+   ],
+   [
+    "yes",
+    "I SEE"
+   ],
+   [
+    "i like sex",
+    "THAT'S QUITE INTERESTING"
+   ],
+   [
+    "do you like to stand on your head",
+    "OH, I LIKE TO STAND ON MY HEAD"
+   ],
+   [
+    "i eat too much",
+    "YOU SAY YOU EAT TOO MUCH"
+   ],
+   [
+    "i drink too much",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "i get drunk",
+    "DO YOU SAY YOU GET DRUNK FOR SOME SPECIAL REASON"
+   ],
+   [
+    "i like whiskey",
+    "THAT'S QUITE INTERESTING"
+   ],
+   [
+    "i hate whiskey",
+    "YOU SAY YOU HATE WHISKEY"
+   ],
+   [
+    "i like whiskey",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "i swallow the ice cubes",
+    "DO YOU SAY YOU SWALLOW THE ICE CUBES FOR SOME SPECIAL REASON"
+   ],
+   [
+    "they are good",
+    "DID YOU THINK THEY MIGHT NOT BE GOOD"
+   ],
+   [
+    "yes",
+    "I UNDERSTAND"
+   ],
+   [
+    "my father hurts",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "my mother",
+    "WHO ELSE IN YOUR FAMILY"
+   ],
+   [
+    "my sister",
+    "YOUR SISTER"
+   ],
+   [
+    "yes. she screws",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "do you screw",
+    "YOU'RE NOT REALLY TALKING ABOUT ME - ARE YOU"
+   ],
+   [
+    "no",
+    "WHY NOT"
+   ],
+   [
+    "do you screw",
+    "WHAT ARE YOUR FEELINGS NOW"
+   ],
+   [
+    "hot",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ],
+   [
+    "do you take baths",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "do i take baths",
+    "THAT'S QUITE INTERESTING"
+   ],
+   [
+    "i hate baths",
+    "YOU SAY YOU HATE BATHS"
+   ],
+   [
+    "water is evil",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "my teeth",
+    "IS IT IMPORTANT TO YOU THAT YOUR TEETH"
+   ],
+   [
+    "my cat",
+    "YOUR CAT"
+   ],
+   [
+    "yes",
+    "YOU ARE SURE"
+   ],
+   [
+    "yes",
+    "I SEE"
+   ],
+   [
+    "i love ice cream",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "orange sherbet especially",
+    "DOES THAT HAVE ANYTHING TO DO WITH THE FACT THAT YOUR FATER"
+   ],
+   [
+    "my father",
+    "WHAT ELSE COMES TO MIND WHEN YOU THINK OF YOUR FATHER"
+   ],
+   [
+    "girls",
+    "PLEASE GO ON"
+   ],
+   [
+    "more girls",
+    "WHAT DOES THAT SUGGEST TO YOU"
+   ],
+   [
+    "still mpre girls",
+    "BUT YOUR FATHER"
+   ],
+   [
+    "i like bridges",
+    "DO YOU SAY YOU LIKE BRIDGES FOR SOME SPECIAL REASON"
+   ],
+   [
+    "they are high",
+    "WOULD YOU LIKE IT IF THEY WERE NOT HIGH"
+   ],
+   [
+    "no",
+    "WHY 'NO'"
+   ],
+   [
+    "up yours",
+    "LETS DISCUSS FURTHER WHY YOUR WIFE"
+   ],
+   [
+    "no",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "go home",
+    "DO YOU FEEL STRONGLY ABOUT DISCUSSING SUCH THINGS"
+   ]
+  ]
+ },
+ {
+  "name": "Weizenbaum 1978: the mind machines",
+  "turns": [
+   [
+    "I have great trouble sleeping.",
+    "YOU SAY YOU HAVE GREAT TROUBLE SLEEPING"
+   ],
+   [
+    "Yes, a terrible dream always wakes me.",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "Last night I dreamt my dad beat me.",
+    "REALLY, YOUR FATHER BEAT YOU"
+   ],
+   [
+    "Money, that's it.",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "Dad is very rich.",
+    "PLEASE GO ON"
+   ],
+   [
+    "You probably have lots of money too.",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ]
+  ]
+ },
+ {
+  "name": "Weizenbaum, July 1977",
+  "turns": [
+   [
+    "MY MOTHER MADE ME COME HERE. I DON'T KNOW WHAT MY PROBLEM IS.",
+    "TELL ME MORE ABOUT YOUR FAMILY"
+   ],
+   [
+    "I HAVE TWO OLDER BROTHERS",
+    "YOU SAY YOU HAVE TWO OLDER BROTHERS"
+   ],
+   [
+    "AND A LITTLE SISTER.  I LIKE HER A LOT",
+    "CAN YOU ELABORATE ON THAT"
+   ],
+   [
+    "YES. I FEEL CLOSE TO MY SISTER, BUT NOT TO MY PARENTS",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "I AM.",
+    "IS IT BECAUSE YOU ARE THAT YOU CAME TO ME"
+   ],
+   [
+    "NO. IT'S BECAUSE I'M UNHAPPY.",
+    "ARE YOU SAYING 'NO' JUST TO BE NEGATIVE"
+   ],
+   [
+    "NO. BECAUSE IT'S TRUE.",
+    "YOU ARE BEING A BIT NEGATIVE"
+   ],
+   [
+    "I ALWAYS AM",
+    "CAN YOU THINK OF A SPECIFIC EXAMPLE"
+   ],
+   [
+    "YES. YESTERDAY I DOUBTED WHETHER I SHOULD COME HERE",
+    "YOU ARE SURE"
+   ],
+   [
+    "YES. I WAS SCARED",
+    "I SEE"
+   ],
+   [
+    "I AM SCARED OF DOCTORS",
+    "HOW LONG HAVE YOU BEEN SCARED OF DOCTORS"
+   ],
+   [
+    "FOREVER. AND I AM SCARED OF MACHINES TOO",
+    "DO COMPUTERS WORRY YOU"
+   ],
+   [
+    "YES. I DON'T UNDERSTAND THEM",
+    "I UNDERSTAND"
+   ],
+   [
+    "HOW CAN YOU?",
+    "WHY DO YOU ASK"
+   ],
+   [
+    "BECAUSE I DON'T THINK YOU CAN UNDERSTAND ME OR HELP ME",
+    "IS THAT THE REAL REASON"
+   ],
+   [
+    "YES.",
+    "YOU SEEM QUITE POSITIVE"
+   ],
+   [
+    "I AM RIGHT NOW. I DON'T ALWAYS  FEEL THIS WAY, THOUGH.",
+    "DO YOU BELIEVE IT NORMAL TO BE RIGHT NOW"
+   ],
+   [
+    "I'M NOT SURE I KNOW WHASTNORMAL IS",
+    "DO YOU ENJOY BEING NOT SURE YOU KNOW WHASTNORMAL IS"
+   ],
+   [
+    "THIS IS SILLY",
+    "DOES THAT HAVE ANYTHING TO DO WITH THE FACT THAT YOUR MOTHER MADE YOU COME HERE"
+   ],
+   [
+    "YOU CHANGED THE SUBJECT. WHY?",
+    "WE WERE DISCUSSING YOU - NOT ME"
+   ],
+   [
+    "OKAY. I GUESS YOU'RE RIGHT. MY MOTHER IS SO PUSHY--LIKE YOU.",
+    "DO YOU SAY YOU GUESS I'M RIGHT FOR SOME SPECIAL REASON"
+   ],
+   [
+    "YES, YOU'RE THE DOCTOR,YOU SHOULD KNOW",
+    "YOU ARE SURE"
+   ],
+   [
+    "OF COURSE. DOCTORS ARE TRAINED, THEY SHOULD UNDERSTAND",
+    "DID YOU THINK THEY MIGHT NOT BE TRAINED"
+   ],
+   [
+    "NOL,I KNOW THEY'RE TRAINED. BUT I'M NT SURE YOU WILL LIKE ME",
+    "THAT'S QUITE INTERESTING"
+   ],
+   [
+    "MOST PEOPLE DON'T LIKE ME",
+    "I AM NOT SURE I UNDERSTAND YOU FULLY"
+   ],
+   [
+    "I AM NOT POPULAR",
+    "IS IT BECAUSE YOU ARE NOT POPULAR THAT YOU CAME TO ME"
+   ],
+   [
+    "YES. CAN YOU HELP ME?",
+    "I SEE"
+   ],
+   [
+    "I HAVE TO GO NOW",
+    "YOU SAY YOU HAVE TO GO NOW"
+   ],
+   [
+    "YES. MY TIME IS UP",
+    "I UNDERSTAND"
+   ],
+   [
+    "GOOD BYE. SEE YOU NEXT WEEK.",
+    "OH, I NEXT WEEK"
+   ]
+  ]
+ }
+]

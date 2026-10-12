@@ -1,20 +1,26 @@
-// node test.mjs: run cases.json against eliza.js (fresh engine per conversation).
+// node test.mjs: run every rule set in rules/index.json against cases/<id>.json.
+// Each conversation gets a fresh engine, so cycling and memory are tested too.
 import { readFileSync } from "node:fs";
-import { createEliza } from "./eliza.js";
+import { createEliza, hash, lastChunkBCD } from "./eliza.js";
 
-const rules = JSON.parse(readFileSync(new URL("rules.json", import.meta.url)));
-const cases = JSON.parse(readFileSync(new URL("cases.json", import.meta.url)));
+const load = path => JSON.parse(readFileSync(new URL(path, import.meta.url)));
+let failed = 0, passed = 0;
+const check = (label, got, expected) => {
+  if (got === expected) return passed++;
+  failed++;
+  console.log(`FAIL ${label}\n  expected: ${expected}\n  got:      ${got}`);
+};
 
-let failed = 0;
-for (const { name, turns } of cases) {
-  const eliza = createEliza(rules);
-  for (const [input, expected] of turns) {
-    const got = eliza.reply(input);
-    if (got !== expected) {
-      failed++;
-      console.log(`FAIL ${name}\n  > ${input}\n  expected: ${expected}\n  got:      ${got}`);
-    }
+// SLIP HASH sanity values (Weizenbaum 1966 p.38: "ALWAYS" hashes to 14; Hay: "HERE" -> 3)
+check("hash ALWAYS", hash(lastChunkBCD("ALWAYS"), 7), 14);
+check("hash HERE", hash(lastChunkBCD("HERE"), 2), 3);
+
+for (const { id } of load("rules/index.json")) {
+  const rules = load(`rules/${id}.json`);
+  for (const { name, turns } of load(`cases/${id}.json`)) {
+    const eliza = createEliza(rules);
+    for (const [input, expected] of turns) check(`${id} / ${name}\n  > ${input}`, eliza.reply(input), expected);
   }
 }
-console.log(failed ? `${failed} failed` : "all passed");
+console.log(`${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);
