@@ -8,7 +8,7 @@
   :root { --bg: #0b0f0b; --fg: #7dff8a; --dim: #3f8f48; --faint: #1c2a1d; }
   * { box-sizing: border-box; }
   body {
-    margin: 0; padding: 1rem; height: 100vh; display: flex; flex-direction: column;
+    margin: 0 auto; padding: 1rem; height: 100vh; max-width: 56rem; display: flex; flex-direction: column;
     background: var(--bg); color: var(--fg);
     font: 0.95rem/1.5 "Courier New", ui-monospace, monospace;
   }
@@ -17,33 +17,34 @@
   h1 { font-weight: normal; }
   a { color: inherit; }
   select, input, button { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--dim); padding: .3rem .5rem; }
+  button { cursor: pointer; }
   select:focus, input:focus, button:focus, summary:focus { outline: 2px solid var(--fg); }
+  label { display: inline-flex; gap: .3rem; align-items: center; cursor: pointer; }
+  label input { accent-color: var(--fg); }
 
-  /* Details on the left, chat on the right; stacked (chat first) on narrow screens. */
-  main { flex: 1; min-height: 0; display: grid; gap: 1.5rem;
-         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "about chat"; }
-  #about { grid-area: about; overflow-y: auto; padding-right: .75rem; border-right: 1px solid var(--faint); }
-  #chat { grid-area: chat; display: flex; flex-direction: column; min-height: 0; }
-  @media (max-width: 760px) {
-    body { height: auto; }
-    main { grid-template-columns: minmax(0, 1fr); grid-template-areas: "chat" "about"; }
-    #chat { height: 70vh; }
-    #about { border-right: 0; border-top: 1px solid var(--faint); padding: 1rem 0 0; }
-  }
-
-  #log { flex: 1; overflow-y: auto; white-space: pre-wrap; }
+  #log { flex: 1; min-height: 0; overflow-y: auto; white-space: pre-wrap; }
   #log p { margin: 0 0 .75rem; }
   #log .you { color: var(--dim); }
   #log .you::before { content: "> "; }
+  #log .why { margin-top: -.6rem; padding-left: 1.2rem; color: var(--dim); font-size: .8em; }
+  #log .why span + span::before { content: "  →  "; }
+  body.hide-why #log .why { display: none; }
   form { display: flex; gap: .5rem; border-top: 1px solid var(--dim); padding-top: .75rem; }
   form input { flex: 1; min-width: 0; }
 
-  #about section { margin-bottom: 1.5rem; }
-  #about h3 { color: var(--dim); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
-  #about p { margin: 0 0 .6rem; }
+  /* "About this system" pop-out: covers the chat; full screen on phones. */
+  dialog { background: var(--bg); color: var(--fg); border: 1px solid var(--dim); padding: 0;
+           width: min(56rem, 100vw - 2rem); max-height: calc(100vh - 2rem); }
+  dialog::backdrop { background: rgb(0 0 0 / .7); }
+  dialog .bar { position: sticky; top: 0; background: var(--bg); display: flex; justify-content: space-between;
+                align-items: center; padding: .75rem 1rem; border-bottom: 1px solid var(--faint); }
+  dialog .body { padding: 1rem; }
+  @media (max-width: 760px) { dialog { width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; margin: 0; } }
+  dialog section { margin-bottom: 1.5rem; }
+  dialog h3 { color: var(--dim); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  dialog p { margin: 0 0 .6rem; }
   .muted { color: var(--dim); }
   .small { font-size: .85em; }
-  #trace { margin: 0; padding-left: 1.4rem; white-space: pre-wrap; }
   details { border-left: 2px solid var(--faint); padding-left: .5rem; margin-bottom: .3rem; }
   summary { cursor: pointer; }
   .rule { margin: .3rem 0 .6rem; }
@@ -55,23 +56,22 @@
 <header>
   <h1>ELIZA and descendants ·</h1>
   <select id="set" aria-label="Rule set"></select>
-  <a id="rules-link">raw rules</a>
+  <button id="open-about" type="button">About this system</button>
+  <label><input type="checkbox" id="show-why" checked> show workings</label>
 </header>
-<main>
-  <section id="chat" aria-label="Chat">
-    <div id="log" aria-live="polite"></div>
-    <form id="form">
-      <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
-      <button>Send</button>
-    </form>
-  </section>
-  <aside id="about" aria-label="About this system">
-    <section><h2 id="name"></h2><p class="muted small" id="source"></p></section>
+<div id="log" aria-live="polite"></div>
+<form id="form">
+  <input id="msg" aria-label="Message" autocomplete="off" autofocus placeholder="Type, then Enter. Say bye to stop.">
+  <button>Send</button>
+</form>
+<dialog id="about" aria-labelledby="name">
+  <div class="bar"><h2 id="name"></h2><button id="close-about" type="button">Close ✕</button></div>
+  <div class="body">
+    <section><p class="muted small" id="source"></p><a id="rules-link" class="small">raw rules file</a></section>
     <section><h3>How it works</h3><div id="about-text"></div></section>
-    <section><h3>Why that reply</h3><ol id="trace"><li class="muted">Say something to see the steps.</li></ol></section>
     <section><h3>The rules</h3><div id="rules"></div></section>
-  </aside>
-</main>
+  </div>
+</dialog>
 <script type="module">
   import { createEliza } from "./eliza.js";
 
@@ -95,7 +95,10 @@
   const rules = await getJSON(`rules/${current.id}.json`);
   const eliza = createEliza(rules);
 
-  // ---- Left column: what this system is and what its rules are ----
+  // ---- "About this system" pop-out: what this system is and what its rules are ----
+  const about = $("about");
+  $("open-about").addEventListener("click", () => about.showModal());
+  $("close-about").addEventListener("click", () => about.close());
   $("name").textContent = rules.name;
   $("source").textContent = rules.source || "";
   $("about-text").append(...(rules.about || []).map(text => el("p", {}, text)));
@@ -177,13 +180,24 @@
     list();
   }
 
-  // ---- Right column: the chat ----
+  // ---- The chat. Each reply carries its workings (eliza.trace) underneath. ----
   const log = $("log");
   const input = $("msg");
-  function say(text, who) {
+  function say(text, who, why) {
     log.append(el("p", { className: who }, text));
+    if (why?.length) log.append(el("p", { className: "why" }, "↳ ", ...why.map(step => el("span", {}, step.trim()))));
     log.scrollTop = log.scrollHeight;
   }
+
+  // "show workings" toggle, remembered per browser.
+  const showWhy = $("show-why");
+  try { showWhy.checked = localStorage.getItem("elizita.showWhy") !== "no"; } catch {}
+  const applyWhy = () => {
+    document.body.classList.toggle("hide-why", !showWhy.checked);
+    try { localStorage.setItem("elizita.showWhy", showWhy.checked ? "yes" : "no"); } catch {}
+  };
+  showWhy.addEventListener("change", applyWhy);
+  applyWhy();
 
   say(eliza.initial, "eliza");
   $("form").addEventListener("submit", e => {
@@ -197,8 +211,8 @@
       input.disabled = true;
       return;
     }
-    say(eliza.reply(text), "eliza");
-    $("trace").replaceChildren(...eliza.trace.map(step => el("li", {}, step)));
+    const reply = eliza.reply(text);
+    say(reply, "eliza", [...eliza.trace]);
   });
 </script>
 </body>

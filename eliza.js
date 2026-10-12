@@ -147,7 +147,7 @@ export function createEliza(rules, { random = Math.random } = {}) {
       const key = stack.shift();
       if (!has(rules.keywords, key)) return nomatch(); // a goto to a missing keyword
       const entry = rules.keywords[key];
-      trace.push(`keyword ${key}${entry.rank ? ` (rank ${entry.rank})` : ""}`);
+      trace.push(`keyword ${key}${entry.rank ? ` (priority ${entry.rank})` : ""}`);
       if (rules.memory && key === rules.memory.keyword) remember(words);
 
       const list = entry.rules || [];
