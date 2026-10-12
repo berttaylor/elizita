@@ -116,23 +116,49 @@
   const box = $("rules");
 
   if (rules.keywords && !rules.categories) {
+    // Aliases (a keyword with no patterns of its own, e.g. MACHINE -> COMPUTER) are folded into their target.
     const keys = Object.entries(rules.keywords);
-    box.append(el("p", { className: "muted" }, `${keys.length} keywords, highest rank first. Open one to see its patterns and replies.`));
-    keys.sort((a, b) => (b[1].rank || 0) - (a[1].rank || 0));
-    for (const [word, entry] of keys) {
+    const aliases = {};
+    for (const [word, entry] of keys) if (!entry.rules && entry.goto) (aliases[entry.goto] ||= []).push(word);
+    const main = keys.filter(([, entry]) => entry.rules).sort((a, b) => (b[1].rank || 0) - (a[1].rank || 0));
+
+    // "* YOUR * (/FAMILY) *" -> pieces ["[anything]", "YOUR", "[anything]", "[a family word]", "[anything]"]
+    const pieceName = token =>
+      token === "*" ? "[anything]" :
+      /^\d+$/.test(token) ? `[exactly ${token} word${token === "1" ? "" : "s"}]` :
+      token.startsWith("(/") ? `[a ${token.slice(2, -1).trim().toLowerCase()} word]` :
+      token.startsWith("(*") ? `[${token.slice(2, -1).trim().split(/\s+/).join(" or ")}]` : token;
+    const describe = reply =>
+      typeof reply === "object" ? `rewrite your sentence as "${reply.pre}", then use ${reply.goto}'s patterns` :
+      reply === "newkey" ? "(give up on this keyword and try the next one in your sentence)" :
+      reply.startsWith("goto ") ? `(use ${reply.slice(5)}'s patterns instead)` : reply;
+
+    box.append(
+      el("p", {}, "ELIZA looks for these keywords in what you type. If your sentence has several, the one with the highest priority wins."),
+      el("p", {}, "Open a keyword to see its patterns. The first pattern your sentence fits decides the replies, which are used in turn, one per visit. A number like (4) in a reply repeats piece 4 of your sentence: each part of the pattern is one numbered piece."),
+      rules.substitute?.I === "YOU" ? el("p", {}, "One 1966 quirk: I/YOU and MY/YOUR are swapped before matching, so the patterns are written back-to-front. YOU in a pattern means you typed I, and YOUR means you typed MY.") : null);
+    for (const [word, entry] of main) {
+      const also = aliases[word] ? `  ·  also ${aliases[word].join(", ")}` : "";
       box.append(el("details", {},
-        el("summary", {}, `${word}${entry.rank ? `  rank ${entry.rank}` : ""}${entry.goto ? `  → ${entry.goto}` : ""}`),
-        ...(entry.rules || []).map(rule => el("div", { className: "rule" },
-          el("div", {}, rule.decomp),
-          el("ul", {}, ...rule.reasmb.map(r => el("li", {}, show(r))))))));
+        el("summary", {}, `${word}${entry.rank ? `  ·  priority ${entry.rank}` : ""}${also}`),
+        ...entry.rules.map(rule => {
+          const pieces = rule.decomp.match(/\([^)]*\)|\S+/g).map(pieceName);
+          const numbered = rule.reasmb.some(r => typeof r === "string" && /\(\d+\)/.test(r));
+          return el("div", { className: "rule" },
+            el("div", {}, `If your sentence looks like:  ${pieces.join("  ")}`),
+            numbered ? el("div", { className: "muted small" }, "pieces: " + pieces.map((p, i) => `(${i + 1}) ${p}`).join("   ")) : null,
+            el("div", { className: "muted small" }, rule.reasmb.length > 1 ? "ELIZA replies, in turn:" : "ELIZA replies:"),
+            el("ul", {}, ...rule.reasmb.map(r => el("li", {}, describe(r)))));
+        }),
+        entry.goto ? el("p", { className: "muted small" }, `If none of these patterns fit: use ${entry.goto}'s patterns.`) : null));
     }
     const pairs = obj => Object.entries(obj || {}).map(([k, v]) => `${k} → ${Array.isArray(v) ? v.join(" ") : v}`).join(",  ");
-    if (rules.substitute) box.append(el("details", {}, el("summary", {}, "word swaps while scanning (substitute)"), el("p", {}, pairs(rules.substitute))));
-    if (rules.reflect) box.append(el("details", {}, el("summary", {}, "word swaps in replies (reflect)"), el("p", {}, pairs(rules.reflect))));
-    if (rules.tags) box.append(el("details", {}, el("summary", {}, "word groups (tags)"), el("p", {}, pairs(rules.tags))));
-    if (rules.memory) box.append(el("details", {}, el("summary", {}, `memory (keyword ${rules.memory.keyword})`),
+    if (rules.substitute) box.append(el("details", {}, el("summary", {}, "words swapped as your sentence is read (I → YOU, MY → YOUR)"), el("p", {}, pairs(rules.substitute))));
+    if (rules.reflect) box.append(el("details", {}, el("summary", {}, "words swapped in the reply (MY → YOUR)"), el("p", {}, pairs(rules.reflect))));
+    if (rules.tags) box.append(el("details", {}, el("summary", {}, "word groups, e.g. \"a family word\""), el("p", {}, pairs(rules.tags))));
+    if (rules.memory) box.append(el("details", {}, el("summary", {}, `memory: remarks saved when you say ${rules.memory.keyword}, brought back later`),
       el("ul", {}, ...rules.memory.rules.map(r => el("li", {}, `${r.decomp}  →  ${r.reasmb}`)))));
-    if (rules.none) box.append(el("details", {}, el("summary", {}, "when nothing matches (none)"), el("ul", {}, ...rules.none.map(r => el("li", {}, r)))));
+    if (rules.none) box.append(el("details", {}, el("summary", {}, "when no keyword is found"), el("ul", {}, ...rules.none.map(r => el("li", {}, r)))));
   }
 
   if (rules.categories) {
