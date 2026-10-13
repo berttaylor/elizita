@@ -231,7 +231,10 @@ export function createEliza(rules, { random = Math.random, embed = null } = {}) 
 
   // Text -> sentences of words, keeping the user's case (matching uses uppercase copies).
   function sentencesOf(text) {
-    return text.replace(/’/g, "'").split(/[.?!]+/).map(sentence => sentence
+    return text.replace(/’/g, "'")
+      .replace(/\b(?:\p{L}\.){2,}/gu, a => a.replace(/\./g, "")) // "D.I.G.G.L.E." -> "DIGGLE"
+      .replace(/(\w)\.(?=\w)/g, "$1")                            // "Node.js" -> "Nodejs"
+      .split(/[.?!]+/).map(sentence => sentence
       .replace(/[^\p{L}\p{N}' ]+/gu, " ").split(/\s+/).filter(Boolean)
       .flatMap(word => {
         const key = word.toUpperCase();

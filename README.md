@@ -11,8 +11,9 @@ Live at https://berttaylor.github.io/elizita/. Pick a rule set from the dropdown
 | 3 | `alice` | 1995–2011 | Match the whole sentence against about 50,000 patterns, rewrite synonyms to canonical forms, follow up on its own last line, and remember your name. |
 | 4 | `alice-plus` | ours | ALICE, plus: when only a catch-all or loose pattern fits, a small sentence model picks the ALICE pattern closest in *meaning*; DOCTOR as the last resort; remembers facts ("my sister is called Ann"). |
 | 5 | `parry` | ours, after 1972 | A persona after Colby's PARRY with fear, anger and mistrust levels. The model judges what each message sounds like; the levels choose friendly, guarded or hostile replies, and too much makes him walk out. |
+| joke | `diggle` | ours | **D.I.G.G.L.E.** (Distinctly Infrastructure-Grade, Genuinely Load-bearing Engineer): a frontend engineer who insists he's full-stack. A comedy persona that uses everything at once: patterns, ELIZA-style reflection, topic words, `<that>` follow-ups, facts, meaning matching and three moods (defensiveness, smugness, panic). Tell him he's "just frontend" enough times and he logs off. |
 
-Tiers 4 and 5 download a small sentence model (Xenova/all-MiniLM-L6-v2, about 23MB, cached after the first visit) that runs in your browser. It never writes a reply: it only scores how close two sentences are in meaning, and the rules decide what to say. No server, no API keys.
+Tiers 4, 5 and D.I.G.G.L.E. download a small sentence model (Xenova/all-MiniLM-L6-v2, about 23MB, cached after the first visit) that runs in your browser. It never writes a reply: it only scores how close two sentences are in meaning, and the rules decide what to say. No server, no API keys.
 
 | File | Role |
 |------|------|
@@ -23,6 +24,7 @@ Tiers 4 and 5 download a small sentence model (Xenova/all-MiniLM-L6-v2, about 23
 | `rules/alice.json` | The Free A.L.I.C.E. AIML set, converted (GPL). |
 | `rules/alice-plus.json`, `.vectors.bin` | Tier 4 rules and the precomputed meaning vectors for 22,000 ALICE patterns. |
 | `rules/parry.json`, `.vectors.bin` | Tier 5: our PARRY-style persona, moods and its pattern vectors. |
+| `rules/diggle.json`, `.vectors.bin` | D.I.G.G.L.E., the comedy persona, and its pattern vectors. |
 | `tools/aiml2json.mjs` | Converts any folder of AIML 1.0 files into a rules file. |
 | `tools/embed.mjs`, `tools/test-meaning.mjs`, `tools/explore.mjs` | Build vectors, test and explore tiers 4–5 with the real model (run in Docker). |
 | `cases/<id>.json` | Conversations each rule set must reproduce word for word. |
